@@ -1,10 +1,12 @@
 const React = require('react');
 const ReactDOM = require('react-dom');
-const CommentBox = require('./components/CommentBox.jsx');
+const ViewBox = require('./components/ViewBox.jsx');
+const Canvas = require('./components/canvas.js')
 
 window.onload = function(){
   ReactDOM.render(
-    <ViewBox url="localhost/3000/lists" />,
-    document.getElementById('app_view') 
-  );
+    <ViewBox url="/lists" />,
+    document.getElementById('app_view')
+  )
+  let canvas = new Canvas(document.getElementById('canvas'))
 }
