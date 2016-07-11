@@ -99,13 +99,13 @@ button {
       border-radius: 5%;
     }
 
-    #student-list{
+    #students{
       display: inline-block;
     /*  float: left;*/
 
     }
 
-    #employer-list{
+    #employers{
       display: inline-block;
       float: right;
     }
