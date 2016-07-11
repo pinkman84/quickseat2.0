@@ -1,13 +1,10 @@
 const React = require('react');
-const ParticipantBox = require('./ParticipantBox.jsx')
+const CreateForm = require('./CreateForm.jsx')
 
-let ViewBox = React.createClass({
+let CreateBox = React.createClass({
 
   getInitialState: function() {
-    return {
-      employers: [],
-      students: []
-    };
+    return { employers: [], students: [] };
   },
 
   componentDidMount: function() {
@@ -15,26 +12,22 @@ let ViewBox = React.createClass({
   },
 
   fetchLists: function(){
-    console.log('CDM was called');
-    let url = this.props.url
-    let request = new XMLHTTPRequest();
-    request.open("GET", url)
+    let request = new XMLRequest();
+    request.open("GET", this.props.url)
     request.onload = function(){
       let lists = JSON.parse(request.responseText);
-        for (let i = 0; i < lists.length; i++) {
+        for ( let i = 0; i < lists.length; i++ ) {
           if (lists[i].type === 'employer') {
             this.addEmployer(lists[i])
-          }
-          else{
-            this.addStudent(lists[i])
+          } else {
+						this.addStudent(lists[i])
           }
         }
-
     }.bind(this)
-    request.send();
+    request.send(null);
   },
 
-  addEmployer: function(employer){
+	addEmployer: function(employer){
     this.state.employers.push(employer)
   },
 
@@ -45,8 +38,9 @@ let ViewBox = React.createClass({
   render: function() {
     return (
       <div>
-      <ParticipantBox participants = {this.state.employers}/>
-      <ParticipantBox participants = {this.state.students}/>
+      <CreateForm />
+      <ParticipantBox employersList = {this.state.employers}/>
+      <ParticipantBox studentsList = {this.state.students}/>
       </div>
     );
   }
