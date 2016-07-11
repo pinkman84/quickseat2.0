@@ -5,12 +5,11 @@ var ParticipantBox = React.createClass({
   
 
   render: function() {
-    console.log('p box props',this.props.participants);
     const list = this.props.participants.map(function(partInfo){
 
       let logo = "//logo.clearbit.com/" + partInfo.name.toLowerCase().replace(/ /g,'') +".com?size=40"
       return(
-        <div key={partInfo.id}>
+        <div id="participant" key={partInfo.id}>
           <h4> {partInfo.name} </h4>
           <img src={logo}/>
         </div>
