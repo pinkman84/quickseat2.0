@@ -48,10 +48,10 @@
 	
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(33);
-	var CommentBox = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./components/CommentBox.jsx\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	var ViewBox = __webpack_require__(170);
 	
 	window.onload = function () {
-	  ReactDOM.render(React.createElement(ViewBox, { url: 'localhost/3000/lists' }), document.getElementById('app_view'));
+	  ReactDOM.render(React.createElement(ViewBox, { url: '/lists' }), document.getElementById('app_view'));
 	};
 
 /***/ },
@@ -20968,6 +20968,115 @@
 	var ReactMount = __webpack_require__(162);
 	
 	module.exports = ReactMount.renderSubtreeIntoContainer;
+
+/***/ },
+/* 170 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(1);
+	var ParticipantBox = __webpack_require__(171);
+	
+	var ViewBox = React.createClass({
+	  displayName: 'ViewBox',
+	
+	
+	  getInitialState: function getInitialState() {
+	    return {
+	      participants: []
+	    };
+	  },
+	
+	  componentDidMount: function componentDidMount() {
+	    console.log("mounted");
+	    this.fetchLists();
+	  },
+	
+	  fetchLists: function fetchLists() {
+	    console.log('CDM was called');
+	    var url = this.props.url;
+	    var request = new XMLHttpRequest();
+	    request.open("GET", url);
+	    request.onload = function () {
+	      var list = JSON.parse(request.responseText);
+	      this.setState({
+	        participants: list
+	      });
+	    }.bind(this);
+	    request.send();
+	  },
+	
+	  filterParticipants: function filterParticipants(type) {
+	    var list = this.state.participants.filter(function (participant) {
+	      return participant.type === type;
+	    });
+	    return list;
+	  },
+	
+	  render: function render() {
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'div',
+	        { className: 'employers' },
+	        React.createElement(ParticipantBox, { participants: this.filterParticipants('employer') })
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'students' },
+	        React.createElement(ParticipantBox, { participants: this.filterParticipants('student') })
+	      )
+	    );
+	  }
+	
+	});
+	
+	module.exports = ViewBox;
+
+/***/ },
+/* 171 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(1);
+	// const Participant = require('./participant.jsx')
+	
+	var ParticipantBox = React.createClass({
+	  displayName: 'ParticipantBox',
+	
+	
+	  render: function render() {
+	    console.log('p box props', this.props.participants);
+	    var list = this.props.participants.map(function (partInfo) {
+	
+	      var logo = "//logo.clearbit.com/" + partInfo.name.toLowerCase().replace(/ /g, '') + ".com?size=40";
+	      return React.createElement(
+	        'div',
+	        { key: partInfo.id },
+	        React.createElement(
+	          'h4',
+	          null,
+	          ' ',
+	          partInfo.name,
+	          ' '
+	        ),
+	        React.createElement('img', { src: logo })
+	      );
+	    });
+	
+	    return React.createElement(
+	      'div',
+	      null,
+	      list
+	    );
+	  }
+	
+	});
+	
+	module.exports = ParticipantBox;
 
 /***/ }
 /******/ ]);

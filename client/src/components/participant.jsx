@@ -1,13 +1,15 @@
 const React = require('react');
 
-const participant = React.createClass({
+const Participant = React.createClass({
 
   render: function() {
     return (
-      <div />
+      <div className="individual">
+        <h4> {this.props.name}</h4>
+      </div>
     );
   }
 
 });
 
-module.exports = participant;
+module.exports = Participant;
