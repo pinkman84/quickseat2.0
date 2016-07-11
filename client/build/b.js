@@ -20982,7 +20982,9 @@
 	var React = __webpack_require__(1);
 	var ParticipantBox = __webpack_require__(173);
 	var ClockBox = __webpack_require__(174);
-	var Clock = __webpack_require__(175);
+	var Clock = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./clock.js\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	
+	var clock = new Clock(1);
 	
 	var ViewBox = React.createClass({
 	  displayName: 'ViewBox',
@@ -20990,7 +20992,9 @@
 	
 	  getInitialState: function getInitialState() {
 	    return {
-	      participants: []
+	      participants: [],
+	      clock: clock
+	      // minutes: clock.minutes
 	    };
 	  },
 	
@@ -21020,27 +21024,43 @@
 	    return list;
 	  },
 	
-	  timer: function timer() {
-	    var clock = new Clock(1);
-	    return clock;
+	  displayTime: function displayTime() {
+	    clock.start(this.render, this);
+	    var currentTime = this.state.clock;
+	    this.setState({ clock: currentTime });
+	    return currentTime;
+	  },
+	
+	  start: function start() {
+	    this.displayTime();
+	  },
+	
+	  reset: function reset() {
+	    this.shuffle();
+	    //clock to restart
+	  },
+	
+	  shuffle: function shuffle(participantList) {
+	    var lastEmployer = participantList.pop();
+	    var newOrder = participantList.unshift(lastEmployer);
+	    console.log('shuffled', participantList);
 	  },
 	
 	  render: function render() {
-	
 	    return React.createElement(
 	      'div',
 	      null,
 	      React.createElement(
 	        'div',
 	        { className: 'employers' },
-	        React.createElement(ParticipantBox, { participants: this.filterParticipants('employer') })
+	        React.createElement(ParticipantBox, { participants: this.filterParticipants('employer'), changeOrder: this.shuffle(this.filterParticipants('employers')) })
 	      ),
 	      React.createElement(
 	        'div',
 	        { className: 'students' },
 	        React.createElement(ParticipantBox, { participants: this.filterParticipants('student') })
 	      ),
-	      React.createElement(ClockBox, { className: 'clock', clock: this.timer })
+	      React.createElement(ClockBox, { className: 'clock', clock: this.state.clock, start: this.start, reset: this.reset })
 	    );
 	  }
 	
@@ -21063,8 +21083,9 @@
 	
 	  render: function render() {
 	    var list = this.props.participants.map(function (partInfo) {
-	
-	      var logo = "//logo.clearbit.com/" + partInfo.name.toLowerCase().replace(/ /g, '') + ".com?size=40";
+	      if (partInfo.type === 'employer') {
+	        var _logo = "//logo.clearbit.com/" + partInfo.name.toLowerCase().replace(/ /g, '') + ".com?size=40";
+	      }
 	      return React.createElement(
 	        'div',
 	        { id: 'participant', key: partInfo.id },
@@ -21102,30 +21123,24 @@
 	  displayName: 'ClockBox',
 	
 	
-	  getInitialState: function getInitialState() {
-	    return {
-	      time: this.props.clock.clocktext
-	    };
-	  },
-	
 	  render: function render() {
-	    console.log('clock', this.props.clock);
+	    console.log('cbox', this.props.clock.clockText);
 	    return React.createElement(
 	      'div',
 	      null,
 	      React.createElement(
 	        'h3',
 	        { id: 'time' },
-	        this.state.time
+	        this.props.clock.clockText
 	      ),
 	      React.createElement(
 	        'button',
-	        { id: 'start', onClick: this.props.clock.start },
+	        { id: 'start', onClick: this.props.start },
 	        'Start'
 	      ),
 	      React.createElement(
 	        'button',
-	        { id: 'clear', onClick: this.props.clock.clear },
+	        { id: 'clear', onClick: this.reset },
 	        'Reset'
 	      )
 	    );
@@ -21136,84 +21151,7 @@
 	module.exports = ClockBox;
 
 /***/ },
-/* 175 */
-/***/ function(module, exports) {
-
-	"use strict";
-	
-	var Clock = function Clock(limit) {
-	  this.limit = limit;
-	  this.minutes = limit;
-	  this.seconds = 0;
-	  this.clockText = this.limit > 9 ? this.limit + ":00" : "0" + this.limit + ":00";
-	  this.stop = 1; // sets stop the clock on
-	
-	  //this.t = 0;
-	};
-	
-	Clock.prototype = {
-	
-	  start: function start() {
-	    setInterval(function () {
-	      if (this.minutes >= 0 && this.seconds >= -1) {
-	        this.seconds -= 1;
-	
-	        if (this.seconds < 0 && this.minutes >= 1) {
-	          this.minutes -= 1;
-	          this.seconds = 59;
-	        }
-	
-	        if (this.minutes === 0 && this.seconds === -1) {
-	          this.seconds = 0;
-	        }
-	
-	        this.clockText = (this.minutes ? this.minutes > 9 ? this.minutes : "0" + this.minutes : "00") + ":" + (this.seconds > 9 ? this.seconds : "0" + this.seconds);
-	      }
-	    }.bind(this), 1000);
-	  },
-	
-	  clear: function clear() {
-	    this.minutes = this.limit;
-	    this.seconds = 0;
-	    this.clockText = this.limit > 9 ? this.limit + ":00" : "0" + this.limit + ":00";
-	  }
-	
-	};
-	
-	module.exports = Clock;
-	
-	// while( this.minutes >= 0 ){
-	//   console.log( this )
-	//   this.seconds -= 1;
-	//   if (this.seconds === -1) {
-	//       this.seconds = 59;
-	//       this.minutes -= 1;
-	//     }
-	//   if ( this.minutes === 0 && this.seconds === 0 ){
-	//     break;
-	//   }
-	// }
-
-	// start: function(){
-	//   for ( this.minutes; this.minutes >= 0; this.minutes-- ) {
-	//       setInterval( function(){
-	//         for ( var j = ; this.seconds >= -1 )
-	//         this.seconds -= 1;
-	//
-	//         if (this.seconds < 0 && this.minutes >= 1){
-	//           this.minutes -= 1;
-	//           this.seconds = 59;
-	//         }
-	//
-	//         this.clockText = (this.minutes ? (this.minutes > 9 ? this.minutes : "0" + this.minutes) : "00")
-	//                             + ":" + (this.seconds > 9 ? this.seconds : "0" + this.seconds);
-	//
-	//         this.timeTag.innerText = this.clockText;
-	//       }.bind(this), 1000 );
-	//     }
-	//   },
-
-/***/ },
+/* 175 */,
 /* 176 */
 /***/ function(module, exports) {
 

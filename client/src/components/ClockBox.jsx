@@ -1,20 +1,15 @@
-var React = require('react');
+const React = require('react');
 
-var ClockBox = React.createClass({
 
-  getInitialState: function() {
-    return {
-      time: this.props.clock.clocktext 
-    };
-  },
+let ClockBox = React.createClass({
 
   render: function() {
-    console.log('clock', this.props.clock);
+    console.log('cbox',this.props.clock.clockText);
     return (
       <div>
-        <h3 id="time">{this.state.time}</h3>
-        <button id="start" onClick={this.props.clock.start}>Start</button>
-        <button id="clear" onClick={this.props.clock.clear}>Reset</button>
+        <h3 id="time">{this.props.clock.clockText}</h3>
+        <button id="start" onClick={this.props.start}>Start</button>
+        <button id="clear" onClick={this.reset}>Reset</button>
 
       </div>
     );

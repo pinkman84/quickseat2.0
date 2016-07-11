@@ -3,12 +3,15 @@ const ParticipantBox = require('./ParticipantBox.jsx')
 const ClockBox = require('./ClockBox.jsx')
 const Clock = require('./clock.js')
 
+let clock = new Clock(1)
 
 const ViewBox = React.createClass({
-
+  
   getInitialState: function() {
     return {
-      participants: []
+      participants: [],
+      clock: clock
+      // minutes: clock.minutes
     };
   },
 
@@ -38,24 +41,40 @@ const ViewBox = React.createClass({
     return list
   },
 
-  timer: function(){
-    let clock = new Clock(1)
-    return clock
+  displayTime: function(){
+    clock.start(this.render, this)
+    let currentTime = this.state.clock
+    this.setState({clock: currentTime})
+    return currentTime
+  },
+
+
+  start: function(){
+    this.displayTime()
+  },
+
+  reset: function(){
+    this.shuffle()
+    //clock to restart
+      },
+
+  shuffle: function(participantList){
+    let lastEmployer = participantList.pop()
+    let newOrder = participantList.unshift(lastEmployer)
+    console.log('shuffled', participantList)
+
   },
 
   render: function() {
-
-
-
     return (
       <div>
       <div className="employers">
-        <ParticipantBox participants = {this.filterParticipants('employer')}/>
+        <ParticipantBox participants = {this.filterParticipants('employer')} changeOrder={this.shuffle(this.filterParticipants('employers'))}/>
       </div>
       <div className="students">
         <ParticipantBox participants = {this.filterParticipants('student')}/>
       </div>
-      <ClockBox className="clock" clock={this.timer}/>
+      <ClockBox className="clock" clock={this.state.clock} start={this.start} reset={this.reset}/>
       </div>
     );
   }
