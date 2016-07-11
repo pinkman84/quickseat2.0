@@ -1,6 +1,6 @@
 node_modules/
 client/build/a.js
 client/build/a.map.js
-client/build/b.js
-client/build/b.map.js
+build/b.js
+build/b.map.js
 client/dist/

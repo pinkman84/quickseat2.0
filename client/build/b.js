@@ -21019,8 +21019,8 @@
 	  },
 	
 	  timer: function timer() {
-	    var clock = new Clock();
-	    return clock(1);
+	    var clock = new Clock(1);
+	    return clock;
 	  },
 	
 	  render: function render() {
@@ -21266,39 +21266,39 @@
 /* 174 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 	
 	var React = __webpack_require__(1);
 	
 	var ClockBox = React.createClass({
-	  displayName: "ClockBox",
+	  displayName: 'ClockBox',
 	
 	
 	  getInitialState: function getInitialState() {
 	    return {
-	      time: null
+	      time: this.props.clock.clocktext
 	    };
 	  },
 	
 	  render: function render() {
-	
+	    console.log('clock', this.props.clock);
 	    return React.createElement(
-	      "div",
+	      'div',
 	      null,
 	      React.createElement(
-	        "h3",
-	        { id: "time" },
-	        myClock.clockText
+	        'h3',
+	        { id: 'time' },
+	        this.state.time
 	      ),
 	      React.createElement(
-	        "button",
-	        { id: "start", onClick: myClock.start },
-	        "Start"
+	        'button',
+	        { id: 'start', onClick: this.props.clock.start },
+	        'Start'
 	      ),
 	      React.createElement(
-	        "button",
-	        { id: "clear", onClick: myClock.clear },
-	        "Reset"
+	        'button',
+	        { id: 'clear', onClick: this.props.clock.clear },
+	        'Reset'
 	      )
 	    );
 	  }

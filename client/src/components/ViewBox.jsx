@@ -39,8 +39,8 @@ const ViewBox = React.createClass({
   },
 
   timer: function(){
-    let clock = new Clock
-    return clock(1)
+    let clock = new Clock(1)
+    return clock
   },
 
   render: function() {
