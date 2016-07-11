@@ -1,10 +1,14 @@
 var React = require('react');
-const Clock = require('./clock.js')
 
 var ClockBox = React.createClass({
 
+  getInitialState: function() {
+    return {
+      time: null 
+    };
+  },
+
   render: function() {
-    let myClock = new Clock(1)
 
     return (
       <div>

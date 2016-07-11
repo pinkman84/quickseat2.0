@@ -21187,6 +21187,11 @@
 	    return list;
 	  },
 	
+	  timer: function timer() {
+	    var clock = new Clock();
+	    return clock(1);
+	  },
+	
 	  render: function render() {
 	
 	    return React.createElement(
@@ -21202,8 +21207,12 @@
 	        { className: 'students' },
 	        React.createElement(ParticipantBox, { participants: this.filterParticipants('student') })
 	      ),
+<<<<<<< HEAD
 	      React.createElement(ClockBox, { className: 'clock' })
 >>>>>>> 65c14a85f3dc08d2bd63057852fdd85d593f426a
+=======
+	      React.createElement(ClockBox, { className: 'clock', clock: this.timer })
+>>>>>>> cc3466f0082acf68e38a620d2dda56a4b90442b9
 	    );
 	  }
 	
@@ -21458,9 +21467,10 @@
 >>>>>>> 65c14a85f3dc08d2bd63057852fdd85d593f426a
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
 	var React = __webpack_require__(1);
+<<<<<<< HEAD
 <<<<<<< HEAD
 	
 	var participant = React.createClass({
@@ -21471,31 +21481,38 @@
 	    return React.createElement('div', null);
 =======
 	var Clock = __webpack_require__(175);
+=======
+>>>>>>> cc3466f0082acf68e38a620d2dda56a4b90442b9
 	
 	var ClockBox = React.createClass({
-	  displayName: 'ClockBox',
+	  displayName: "ClockBox",
 	
+	
+	  getInitialState: function getInitialState() {
+	    return {
+	      time: null
+	    };
+	  },
 	
 	  render: function render() {
-	    var myClock = new Clock(1);
 	
 	    return React.createElement(
-	      'div',
+	      "div",
 	      null,
 	      React.createElement(
-	        'h3',
-	        { id: 'time' },
+	        "h3",
+	        { id: "time" },
 	        myClock.clockText
 	      ),
 	      React.createElement(
-	        'button',
-	        { id: 'start', onClick: myClock.start },
-	        'Start'
+	        "button",
+	        { id: "start", onClick: myClock.start },
+	        "Start"
 	      ),
 	      React.createElement(
-	        'button',
-	        { id: 'clear', onClick: myClock.clear },
-	        'Reset'
+	        "button",
+	        { id: "clear", onClick: myClock.clear },
+	        "Reset"
 	      )
 	    );
 >>>>>>> 65c14a85f3dc08d2bd63057852fdd85d593f426a
