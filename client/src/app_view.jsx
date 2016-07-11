@@ -8,5 +8,5 @@ window.onload = function(){
     <ViewBox url="/lists" />,
     document.getElementById('app_view')
   )
-  let canvas = new Canvas(document.getElementById('canvas')) 
+  let canvas = new Canvas(document.getElementById('canvas'))
 }

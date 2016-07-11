@@ -2,7 +2,6 @@ const React = require('react');
 // const Participant = require('./participant.jsx')
 
 var ParticipantBox = React.createClass({
-  
 
   render: function() {
     const list = this.props.participants.map(function(partInfo){
@@ -17,7 +16,7 @@ var ParticipantBox = React.createClass({
     })
 
     return (
-      <div> 
+      <div>
         {list}
       </div>
     );
