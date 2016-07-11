@@ -38,6 +38,11 @@ const ViewBox = React.createClass({
     return list
   },
 
+  timer: function(){
+    let clock = new Clock
+    return clock(1)
+  },
+
   render: function() {
 
    
@@ -50,7 +55,7 @@ const ViewBox = React.createClass({
       <div className="students">
         <ParticipantBox participants = {this.filterParticipants('student')}/>
       </div>
-      <ClockBox className="clock"/>
+      <ClockBox className="clock" clock={this.timer}/>
       </div>
     );
   }
