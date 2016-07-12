@@ -21098,7 +21098,7 @@
 	'use strict';
 	
 	var React = __webpack_require__(1);
-	// const Participant = require('./participant.jsx')
+	var Individual = __webpack_require__(180);
 	
 	var ParticipantBox = React.createClass({
 	  displayName: 'ParticipantBox',
@@ -21107,13 +21107,14 @@
 	  render: function render() {
 	
 	    var list = this.props.participants.map(function (partInfo) {
+	      var logo = '';
 	      if (partInfo.type === 'employer') {
-	        var logo = "//logo.clearbit.com/" + partInfo.name.toLowerCase().replace(/ /g, '') + ".com?size=40";
-	      }
-	
-	      return React.createElement(
+	        logo = "//logo.clearbit.com/" + partInfo.name.toLowerCase().replace(/ /g, '') + ".com?size=40";
+	      } else if (partInfo.type === 'student') {
+	        logo = 'picture';
+	      }return React.createElement(
 	        'div',
-	        { id: 'participant', key: partInfo.id },
+	        { id: 'participant', key: partInfo._id },
 	        React.createElement(
 	          'h4',
 	          null,
@@ -21128,10 +21129,9 @@
 	    return React.createElement(
 	      'div',
 	      null,
-	      list
+	      React.createElement(Individual, { participant: list, create: true })
 	    );
 	  }
-	
 	});
 	
 	module.exports = ParticipantBox;
@@ -22125,6 +22125,58 @@
 	};
 	
 	module.exports = CanvasState;
+
+/***/ },
+/* 180 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(1);
+	
+	var Individual = React.createClass({
+	  displayName: 'Individual',
+	
+	
+	  handleClose: function () {
+	    this.parentNode.removeChild(this.parentNode);return false;
+	  }.bind(undefined),
+	
+	  render: function render() {
+	
+	    var buttonState = function buttonState() {
+	      if (true) {
+	        return React.createElement(
+	          'span',
+	          { id: 'close', onClick: this.handleClose },
+	          'x'
+	        );
+	      } else {
+	        return React.createElement(
+	          'span',
+	          { id: 'add', onClick: this.handleClose },
+	          '+'
+	        );
+	      }
+	    };
+	
+	    return React.createElement(
+	      'div',
+	      { className: 'individual' },
+	      buttonState,
+	      React.createElement(
+	        'h4',
+	        null,
+	        ' ',
+	        this.props.participant.name,
+	        ' '
+	      )
+	    );
+	  }
+	
+	});
+	
+	module.exports = Individual;
 
 /***/ }
 /******/ ]);
