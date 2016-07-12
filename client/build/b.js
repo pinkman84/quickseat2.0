@@ -20990,13 +20990,15 @@
 	  render: function render() {
 	
 	    var list = this.props.participants.map(function (partInfo) {
-	      if (partInfo.type === 'employer') {
+	      if (partInfo.type === 'Employer') {
 	        var logo = "//logo.clearbit.com/" + partInfo.name.toLowerCase().replace(/ /g, '') + ".com?size=40";
+	      } else {
+	        logo = "/images/" + partInfo.name + ".jpg";
 	      }
 	
 	      return React.createElement(
 	        'div',
-	        { id: 'participant', key: partInfo._id },
+	        { id: 'participant', key: partInfo._id, draggable: 'true' },
 	        React.createElement(
 	          'h4',
 	          null,
@@ -21004,7 +21006,7 @@
 	          partInfo.name,
 	          ' '
 	        ),
-	        React.createElement('img', { src: logo })
+	        React.createElement('img', { src: logo, width: '80', height: '80' })
 	      );
 	    });
 	
@@ -21050,6 +21052,7 @@
 	    var url = this.props.url;
 	    var request = new XMLHttpRequest();
 	    request.open("GET", url);
+	    console.log(request);
 	    request.onload = function () {
 	      var list = JSON.parse(request.responseText);
 	      console.log('view request', request.responseText);
@@ -21082,13 +21085,7 @@
 	
 	  reset: function reset() {
 	    console.log('reset button');
-	    // this.shuffle()
 	    this.setState({ time: 600 });
-	  },
-	
-	  shuffle: function shuffle(participantList) {
-	    var lastEmployer = participantList.pop();
-	    var newOrder = participantList.unshift(lastEmployer);
 	  },
 	
 	  render: function render() {
@@ -21098,12 +21095,12 @@
 	      React.createElement(
 	        'div',
 	        { className: 'employers' },
-	        React.createElement(ParticipantBox, { participants: this.filterParticipants('employer'), changeOrder: this.shuffle(this.filterParticipants('employers')) })
+	        React.createElement(ParticipantBox, { participants: this.filterParticipants('Employer') })
 	      ),
 	      React.createElement(
 	        'div',
 	        { className: 'students' },
-	        React.createElement(ParticipantBox, { participants: this.filterParticipants('student') })
+	        React.createElement(ParticipantBox, { participants: this.filterParticipants('Student') })
 	      ),
 	      React.createElement(ClockBox, { className: 'clock', time: this.state.time, start: this.displayTime, reset: this.reset })
 	    );

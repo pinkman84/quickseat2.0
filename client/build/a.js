@@ -21026,11 +21026,15 @@
 	    this.fetchLists();
 	  },
 	
+	  imageDisplay: function imageDisplay(image) {
+	    return image;
+	  },
+	
 	  render: function render() {
 	    return React.createElement(
 	      'div',
 	      null,
-	      React.createElement(CreateForm, { handlePartySubmit: this.handlePartySubmit }),
+	      React.createElement(CreateForm, { handlePartySubmit: this.handlePartySubmit, image: this.imageDisplay }),
 	      React.createElement(
 	        'div',
 	        { className: 'employers' },
@@ -21039,7 +21043,7 @@
 	      React.createElement(
 	        'div',
 	        { className: 'students' },
-	        React.createElement(ParticipantBox, { participants: this.filterParticipants('Student') })
+	        React.createElement(ParticipantBox, { participants: this.filterParticipants('Student'), image: this.imageDisplay })
 	      )
 	    );
 	  }
@@ -21120,6 +21124,20 @@
 	  handleType: function handleType(e) {
 	    var newType = e.target.value;
 	    this.setState({ type: newType });
+	    if (e.target.value === 'Student') {
+	
+	      this.image();
+	    }
+	  },
+	
+	  handleImage: function handleImage(e) {
+	    var newImg = e.target.value;
+	    this.setState({ image: newImg });
+	  },
+	
+	  image: function image() {
+	    var image = this.refs.image;
+	    image.style.visibility = "visible";
 	  },
 	
 	  render: function render() {
@@ -21152,6 +21170,7 @@
 	            'Student'
 	          )
 	        ),
+	        React.createElement('input', { ref: 'image', id: 'std-img', type: 'file', name: 'myImage', accept: 'image/*', onChange: this.handleImage, value: this.state.image }),
 	        React.createElement('input', { type: 'submit', value: 'Post' })
 	      )
 	    );
@@ -21176,13 +21195,15 @@
 	  render: function render() {
 	
 	    var list = this.props.participants.map(function (partInfo) {
-	      if (partInfo.type === 'employer') {
+	      if (partInfo.type === 'Employer') {
 	        var logo = "//logo.clearbit.com/" + partInfo.name.toLowerCase().replace(/ /g, '') + ".com?size=40";
+	      } else {
+	        logo = "/images/" + partInfo.name + ".jpg";
 	      }
 	
 	      return React.createElement(
 	        'div',
-	        { id: 'participant', key: partInfo._id },
+	        { id: 'participant', key: partInfo._id, draggable: 'true' },
 	        React.createElement(
 	          'h4',
 	          null,
@@ -21190,7 +21211,7 @@
 	          partInfo.name,
 	          ' '
 	        ),
-	        React.createElement('img', { src: logo })
+	        React.createElement('img', { src: logo, width: '80', height: '80' })
 	      );
 	    });
 	

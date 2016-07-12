@@ -106,3 +106,7 @@ input[type=text] {
   /*border: black;*/
   border-radius: 5%;
 }
+
+#std-img{
+  visibility: hidden ;
+}

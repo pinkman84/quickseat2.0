@@ -31,6 +31,20 @@ let CreateForm = React.createClass( {
   handleType: function(e) {
     let newType = e.target.value;
     this.setState({ type: newType })
+    if(e.target.value === 'Student'){
+
+      this.image()
+    }
+  },
+
+  handleImage: function(e){
+    let newImg = e.target.value;
+    this.setState({image: newImg})
+  },
+
+  image: function(){
+   let image = this.refs.image
+   image.style.visibility = "visible"
   },
 
   render: function() {
@@ -46,6 +60,7 @@ let CreateForm = React.createClass( {
             <option>Employer</option>
             <option>Student</option>
           </select>
+          <input ref="image" id='std-img' type="file" name="myImage" accept="image/*" onChange={this.handleImage} value={this.state.image}/>
           <input type="submit" value="Post" />
   			</form>
 

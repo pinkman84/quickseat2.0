@@ -47,15 +47,19 @@ let CreateBox = React.createClass({
     this.fetchLists()
   },
 
+  imageDisplay: function(image){
+    return image
+  },
+
   render: function() {
     return (
       <div>
-        <CreateForm handlePartySubmit = {this.handlePartySubmit}/>
+        <CreateForm handlePartySubmit = {this.handlePartySubmit} image={this.imageDisplay}/>
         <div className="employers">
           <ParticipantBox participants = {this.filterParticipants('Employer')}/>
         </div>
         <div className="students">
-          <ParticipantBox participants = {this.filterParticipants('Student')}/>
+          <ParticipantBox participants = {this.filterParticipants('Student')} image={this.imageDisplay}/>
         </div>
       </div>
     );
