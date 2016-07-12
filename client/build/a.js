@@ -21122,7 +21122,7 @@
 	  render: function render() {
 	    var list = this.props.participants.map(function (partInfo) {
 	      if (partInfo.type === 'employer') {
-	        var _logo = "//logo.clearbit.com/" + partInfo.name.toLowerCase().replace(/ /g, '') + ".com?size=40";
+	        var logo = "//logo.clearbit.com/" + partInfo.name.toLowerCase().replace(/ /g, '') + ".com?size=40";
 	      }
 	      return React.createElement(
 	        'div',

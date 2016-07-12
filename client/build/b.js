@@ -20989,7 +20989,7 @@
 	  render: function render() {
 	    var list = this.props.participants.map(function (partInfo) {
 	      if (partInfo.type === 'employer') {
-	        var _logo = "//logo.clearbit.com/" + partInfo.name.toLowerCase().replace(/ /g, '') + ".com?size=40";
+	        var logo = "//logo.clearbit.com/" + partInfo.name.toLowerCase().replace(/ /g, '') + ".com?size=40";
 	      }
 	      return React.createElement(
 	        'div',
@@ -21025,7 +21025,6 @@
 	var React = __webpack_require__(1);
 	var ParticipantBox = __webpack_require__(172);
 	var ClockBox = __webpack_require__(174);
-	var Clock = __webpack_require__(176);
 	
 	var ViewBox = React.createClass({
 	  displayName: 'ViewBox',
@@ -21034,7 +21033,7 @@
 	  getInitialState: function getInitialState() {
 	    return {
 	      participants: [],
-	      time: 10
+	      time: 600
 	    };
 	  },
 	
@@ -21065,13 +21064,11 @@
 	  },
 	
 	  displayTime: function displayTime() {
-	    setInterval(this.start, 1000);
+	    setInterval(this.start, 200);
 	  },
 	
 	  start: function start() {
-	    // for (var i = this.state.time ; i = false; i--) {
-	    //   this.setState({time: i})
-	    // }
+	
 	    var newTime = this.state.time;
 	    if (newTime) {
 	      newTime--;
@@ -21838,129 +21835,7 @@
 
 
 /***/ },
-/* 176 */
-/***/ function(module, exports) {
-
-	"use strict";
-	
-	// var React = require('react');
-	
-	// var Clock = React.createClass({
-	
-	//   getInitialState: function() {
-	//     return {
-	//       minutes: 1
-	//     };
-	//   },
-	
-	//   render: function() {
-	//     return (
-	//       <div>
-	//       )
-	//   },
-	
-	//   tick: function(){
-	//     if ( this.state.minutes >= 0 && this.seconds >= -1 ) {
-	//       this.seconds -= 1
-	
-	//       if (this.seconds < 0 && this.minutes >= 1){
-	//         this.minutes -= 1
-	//         this.seconds = 59
-	//       }
-	
-	//       if (this.minutes === 0 && this.seconds === -1){
-	//         this.seconds = 0
-	//       }
-	
-	//       this.clockText = (this.minutes ? (this.minutes > 9 ? this.minutes : "0" + this.minutes) : "00")
-	//       + ":" + (this.seconds > 9 ? this.seconds : "0" + this.seconds)
-	//       setInterval(function () {
-	//         this.setState({});
-	//       }, 1000);
-	
-	//     }
-	
-	// });
-	
-	// })
-	
-	// module.exports = Clock;
-	
-	var Clock = function Clock(minutes) {
-	  this.limit = minutes;
-	  this.minutes = minutes;
-	  this.seconds = 0;
-	  this.clockText = this.limit > 9 ? this.limit + ":00" : "0" + this.limit + ":00";
-	  this.stop = 1; // sets stop the clock on
-	
-	  //this.t = 0;
-	};
-	
-	Clock.prototype = {
-	
-	  start: function start(render, context) {
-	    setInterval(function () {
-	      if (this.minutes >= 0 && this.seconds >= -1) {
-	        this.seconds -= 1;
-	
-	        if (this.seconds < 0 && this.minutes >= 1) {
-	          this.minutes -= 1;
-	          this.seconds = 59;
-	        }
-	
-	        if (this.minutes === 0 && this.seconds === -1) {
-	          this.seconds = 0;
-	        }
-	
-	        this.clockText = (this.minutes ? this.minutes > 9 ? this.minutes : "0" + this.minutes : "00") + ":" + (this.seconds > 9 ? this.seconds : "0" + this.seconds);
-	
-	        context.render();
-	      }
-	    }.bind(this), 1000);
-	  },
-	
-	  clear: function clear() {
-	    this.minutes = this.limit;
-	    this.seconds = 0;
-	    this.clockText = this.limit > 9 ? this.limit + ":00" : "0" + this.limit + ":00";
-	  }
-	
-	};
-	
-	module.exports = Clock;
-	
-	// // while( this.minutes >= 0 ){
-	// //   console.log( this )
-	// //   this.seconds -= 1;
-	// //   if (this.seconds === -1) {
-	// //       this.seconds = 59;
-	// //       this.minutes -= 1;
-	// //     }
-	// //   if ( this.minutes === 0 && this.seconds === 0 ){
-	// //     break;
-	// //   }
-	// // }
-
-	// // start: function(){
-	// //   for ( this.minutes; this.minutes >= 0; this.minutes-- ) {
-	// //       setInterval( function(){
-	// //         for ( var j = ; this.seconds >= -1 )
-	// //         this.seconds -= 1;
-	// //
-	// //         if (this.seconds < 0 && this.minutes >= 1){
-	// //           this.minutes -= 1;
-	// //           this.seconds = 59;
-	// //         }
-	// //
-	// //         this.clockText = (this.minutes ? (this.minutes > 9 ? this.minutes : "0" + this.minutes) : "00")
-	// //                             + ":" + (this.seconds > 9 ? this.seconds : "0" + this.seconds);
-	// //
-	// //         this.timeTag.innerText = this.clockText;
-	// //       }.bind(this), 1000 );
-	// //     }
-	// //   },
-
-/***/ },
+/* 176 */,
 /* 177 */
 /***/ function(module, exports) {
 

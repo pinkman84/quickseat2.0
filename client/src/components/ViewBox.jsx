@@ -1,7 +1,6 @@
 const React = require('react');
 const ParticipantBox = require('./ParticipantBox.jsx')
 const ClockBox = require('./ClockBox.jsx')
-const Clock = require('./clock.jsx')
 
 
 
@@ -10,7 +9,7 @@ const ViewBox = React.createClass({
   getInitialState: function() {
     return {
       participants: [],
-      time: 10
+      time: 600
     };
   },
 
@@ -41,14 +40,12 @@ const ViewBox = React.createClass({
   },
 
   displayTime: function(){
-      setInterval(this.start, 1000)
+      setInterval(this.start, 200)
   },
 
 
   start: function(){
-    // for (var i = this.state.time ; i = false; i--) {
-    //   this.setState({time: i})
-    // }
+
     let newTime = this.state.time
     if(newTime){
       newTime --
