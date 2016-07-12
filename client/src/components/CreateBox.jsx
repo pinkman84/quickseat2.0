@@ -1,50 +1,61 @@
 const React = require('react');
+const ParticipantBox = require('./ParticipantBox.jsx');
+const Participant = require('./Participant.js')
 const CreateForm = require('./CreateForm.jsx')
 
 let CreateBox = React.createClass({
 
   getInitialState: function() {
-    return { employers: [], students: [] };
+    return {
+      participants: []
+    };
   },
 
   componentDidMount: function() {
+    console.log("mounted")
     this.fetchLists();
   },
 
   fetchLists: function(){
-    let request = new XMLRequest();
-    request.open("GET", this.props.url)
+    console.log('CDM was called');
+    let url = this.props.url
+    let request = new XMLHttpRequest();
+    request.open("GET", url)
     request.onload = function(){
-      let lists = JSON.parse(request.responseText);
-        for ( let i = 0; i < lists.length; i++ ) {
-          if (lists[i].type === 'employer') {
-            this.addEmployer(lists[i])
-          } else {
-						this.addStudent(lists[i])
-          }
-        }
+      let list = JSON.parse(request.responseText);
+      this.setState({
+        participants: list
+      });
     }.bind(this)
-    request.send(null);
+    request.send();
   },
 
-	addEmployer: function(employer){
-    this.state.employers.push(employer)
+  filterParticipants: function(type){
+    let list = this.state.participants.filter(function(participant){
+      return (participant.type === type)
+    })
+    return list
   },
 
-  addStudent: function(student){
-    this.state.students.push(student)
+  handlePartySubmit: function( name, type, image, number ) {
+    let newParticipant = new Participant( name, type, image, number );
+    newParticipant.save();
   },
 
   render: function() {
     return (
       <div>
-      <CreateForm />
-      <ParticipantBox employersList = {this.state.employers}/>
-      <ParticipantBox studentsList = {this.state.students}/>
+        <CreateForm handlePartySubmit = {this.handlePartySubmit}/>
+        <div className="employers">
+          <ParticipantBox participants = {this.filterParticipants('employer')}/>
+        </div>
+        <div className="students">
+          <ParticipantBox participants = {this.filterParticipants('student')}/>
+        </div>
       </div>
     );
   }
 
 });
 
-module.exports = ViewBox;
+module.exports = CreateBox;

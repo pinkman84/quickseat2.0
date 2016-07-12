@@ -48,12 +48,8 @@
 	
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(33);
-<<<<<<< HEAD
-	var CommentBox = __webpack_require__(174);
-=======
-	var ViewBox = __webpack_require__(170);
-	var Canvas = __webpack_require__(173);
->>>>>>> 65c14a85f3dc08d2bd63057852fdd85d593f426a
+	var ViewBox = __webpack_require__(176);
+	var Canvas = __webpack_require__(178);
 	
 	window.onload = function () {
 	  ReactDOM.render(React.createElement(ViewBox, { url: '/lists' }), document.getElementById('app_view'));
@@ -21093,175 +21089,26 @@
 	module.exports = ReactMount.renderSubtreeIntoContainer;
 
 /***/ },
-<<<<<<< HEAD
 /* 172 */,
-/* 173 */,
-/* 174 */
-=======
-/* 170 */
->>>>>>> 65c14a85f3dc08d2bd63057852fdd85d593f426a
+/* 173 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	var React = __webpack_require__(1);
-<<<<<<< HEAD
-	var ParticipantBox = __webpack_require__(175);
-=======
-	var ParticipantBox = __webpack_require__(171);
-	var ClockBox = __webpack_require__(174);
-	var Clock = __webpack_require__(175);
->>>>>>> 65c14a85f3dc08d2bd63057852fdd85d593f426a
-	
-	var ViewBox = React.createClass({
-	  displayName: 'ViewBox',
-	
-	
-	  getInitialState: function getInitialState() {
-	    return {
-<<<<<<< HEAD
-	      employers: [],
-	      students: []
-=======
-	      participants: []
->>>>>>> 65c14a85f3dc08d2bd63057852fdd85d593f426a
-	    };
-	  },
-	
-	  componentDidMount: function componentDidMount() {
-<<<<<<< HEAD
-=======
-	    console.log("mounted");
->>>>>>> 65c14a85f3dc08d2bd63057852fdd85d593f426a
-	    this.fetchLists();
-	  },
-	
-	  fetchLists: function fetchLists() {
-	    console.log('CDM was called');
-	    var url = this.props.url;
-<<<<<<< HEAD
-	    var request = new XMLHTTPRequest();
-	    request.open("GET", url);
-	    request.onload = function () {
-	      var lists = JSON.parse(request.responseText);
-	      for (var i = 0; i < lists.length; i++) {
-	        if (lists[i].type === 'employer') {
-	          this.addEmployer(lists[i]);
-	        } else {
-	          this.addStudent(lists[i]);
-	        }
-	      }
-=======
-	    var request = new XMLHttpRequest();
-	    request.open("GET", url);
-	    request.onload = function () {
-	      var list = JSON.parse(request.responseText);
-	      this.setState({
-	        participants: list
-	      });
->>>>>>> 65c14a85f3dc08d2bd63057852fdd85d593f426a
-	    }.bind(this);
-	    request.send();
-	  },
-	
-<<<<<<< HEAD
-	  addEmployer: function addEmployer(employer) {
-	    this.state.employers.push(employer);
-	  },
-	
-	  addStudent: function addStudent(student) {
-	    this.state.students.push(student);
-	  },
-	
-	  render: function render() {
-	    return React.createElement(
-	      'div',
-	      null,
-	      React.createElement(ParticipantBox, { participants: this.state.employers }),
-	      React.createElement(ParticipantBox, { participants: this.state.students })
-=======
-	  filterParticipants: function filterParticipants(type) {
-	    var list = this.state.participants.filter(function (participant) {
-	      return participant.type === type;
-	    });
-	    return list;
-	  },
-	
-	  timer: function timer() {
-	    var clock = new Clock();
-	    return clock(1);
-	  },
-	
-	  render: function render() {
-	
-	    return React.createElement(
-	      'div',
-	      null,
-	      React.createElement(
-	        'div',
-	        { className: 'employers' },
-	        React.createElement(ParticipantBox, { participants: this.filterParticipants('employer') })
-	      ),
-	      React.createElement(
-	        'div',
-	        { className: 'students' },
-	        React.createElement(ParticipantBox, { participants: this.filterParticipants('student') })
-	      ),
-<<<<<<< HEAD
-	      React.createElement(ClockBox, { className: 'clock' })
->>>>>>> 65c14a85f3dc08d2bd63057852fdd85d593f426a
-=======
-	      React.createElement(ClockBox, { className: 'clock', clock: this.timer })
->>>>>>> cc3466f0082acf68e38a620d2dda56a4b90442b9
-	    );
-	  }
-	
-	});
-	
-	module.exports = ViewBox;
-
-/***/ },
-<<<<<<< HEAD
-/* 175 */
-=======
-/* 171 */
->>>>>>> 65c14a85f3dc08d2bd63057852fdd85d593f426a
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var React = __webpack_require__(1);
-<<<<<<< HEAD
-	var Participant = __webpack_require__(176);
-=======
 	// const Participant = require('./participant.jsx')
->>>>>>> 65c14a85f3dc08d2bd63057852fdd85d593f426a
 	
 	var ParticipantBox = React.createClass({
 	  displayName: 'ParticipantBox',
 	
 	
 	  render: function render() {
+	
 	    var list = this.props.participants.map(function (partInfo) {
-<<<<<<< HEAD
-	      return React.createElement(
-	        'div',
-	        { key: partInfo.id },
-	        React.createElement(
-	          'h4',
-	          null,
-	          ' partInfo.name '
-	        )
-	      );
-	    });
-	
-	    return { list: list };
-=======
-	
 	      var logo = "//logo.clearbit.com/" + partInfo.name.toLowerCase().replace(/ /g, '') + ".com?size=40";
 	      return React.createElement(
 	        'div',
-	        { id: 'participant', key: partInfo.id },
+	        { id: 'participant', key: partInfo.number },
 	        React.createElement(
 	          'h4',
 	          null,
@@ -21278,7 +21125,6 @@
 	      null,
 	      list
 	    );
->>>>>>> 65c14a85f3dc08d2bd63057852fdd85d593f426a
 	  }
 	
 	});
@@ -21286,11 +21132,188 @@
 	module.exports = ParticipantBox;
 
 /***/ },
-<<<<<<< HEAD
+/* 174 */,
+/* 175 */,
 /* 176 */
-=======
-/* 172 */,
-/* 173 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(1);
+	var ParticipantBox = __webpack_require__(173);
+	var Clock = __webpack_require__(177);
+	
+	var ViewBox = React.createClass({
+	  displayName: 'ViewBox',
+	
+	
+	  getInitialState: function getInitialState() {
+	    return {
+	      participants: []
+	    };
+	  },
+	
+	  componentDidMount: function componentDidMount() {
+	    console.log("mounted");
+	    this.fetchLists();
+	  },
+	
+	  fetchLists: function fetchLists() {
+	    console.log('CDM was called');
+	    var url = this.props.url;
+	    var request = new XMLHttpRequest();
+	    request.open("GET", url);
+	    request.onload = function () {
+	      var list = JSON.parse(request.responseText);
+	      this.setState({
+	        participants: list
+	      });
+	    }.bind(this);
+	    request.send();
+	  },
+	
+	  filterParticipants: function filterParticipants(type) {
+	    var list = this.state.participants.filter(function (participant) {
+	      return participant.type === type;
+	    });
+	    return list;
+	  },
+	
+	  // timer: function(){
+	  //   let clock = new Clock
+	  //   return clock(1)
+	  // },
+	
+	  render: function render() {
+	
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'div',
+	        { className: 'employers' },
+	        React.createElement(ParticipantBox, { participants: this.filterParticipants('employer') })
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'students' },
+	        React.createElement(ParticipantBox, { participants: this.filterParticipants('student') })
+	      ),
+	      React.createElement(Clock, { className: 'clock' })
+	    );
+	  }
+	
+	});
+	
+	module.exports = ViewBox;
+
+/***/ },
+/* 177 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(1);
+	
+	var Clock = React.createClass({
+	    displayName: 'Clock',
+	
+	    // displayName: 'Clock',
+	    // mixins: [SetIntervalMixin],
+	    getInitialState: function getInitialState() {
+	        return { minutes: 0, seconds: 0 };
+	    },
+	    componentDidMount: function componentDidMount() {
+	        setInterval(this.tick, 1000);
+	    },
+	    renderTime: function renderTime() {
+	        var output = '';
+	        var m = 1;
+	        var s = 59;
+	
+	        if (m < 10) {
+	            m = '0' + m;
+	        }
+	        if (s < 10) {
+	            s = '0' + s;
+	        }
+	        output = {
+	            minutes: m,
+	            seconds: s
+	        };
+	        return output;
+	    },
+	    tick: function tick() {
+	        console.log('fuckdis');
+	        var output = this.renderTime();
+	        this.setState(output);
+	    },
+	    render: function render() {
+	        return React.createElement(
+	            'p',
+	            null,
+	            this.state.minutes,
+	            ':',
+	            this.state.seconds,
+	            React.createElement(
+	                'button',
+	                { id: 'start', onClick: this.startClock },
+	                'Start'
+	            )
+	        );
+	    }
+	});
+	
+	module.exports = Clock;
+	
+	// var ClockBox = React.createClass({
+	//
+	//   getInitialState: function() {
+	//     return { minutes: 1, seconds: 0, clockText: "00:00" }
+	//   },
+
+	//   countDown: function( minutes, seconds ){
+	//     if ( minutes >= 0 && seconds >= -1 ) {
+	//        seconds -= 1;
+	//
+	//       if ( seconds < 0 && minutes >= 1){
+	//         minutes -= 1;
+	//         seconds = 59;
+	//       };
+	//
+	//       if (minutes === 0 && seconds === -1){
+	//         seconds = 0;
+	//       };
+	//
+	//       clockText = (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00")
+	//                           + ":" + (seconds > 9 ? seconds : "0" + seconds)
+	//
+	//       this.setState( {clockText: clockText} );
+	//     }
+	//
+	//   }.bind(this),
+	//
+	//   startClock: function() {
+	//     let minutes = this.state.minutes
+	//     let seconds = this.state.seconds
+	//     while( minutes >= 0 && seconds >= 0 ){
+	//       setInterval( countDown( minutes, seconds ), 1000 );
+	//     };
+	//   }.bind(this),
+	//
+	//   render: function() {
+	//     return (
+	//       <div>
+	//         <h3 id="time">{this.clockText}</h3>
+	//         <button id="start" onClick={this.startClock}>Start</button>
+	//       </div>
+	//     );
+	//   }
+	//
+	// });
+
+/***/ },
+/* 178 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -21461,148 +21484,6 @@
 	};
 	
 	module.exports = CanvasState;
-
-/***/ },
-/* 174 */
->>>>>>> 65c14a85f3dc08d2bd63057852fdd85d593f426a
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	
-	var React = __webpack_require__(1);
-<<<<<<< HEAD
-<<<<<<< HEAD
-	
-	var participant = React.createClass({
-	  displayName: 'participant',
-	
-	
-	  render: function render() {
-	    return React.createElement('div', null);
-=======
-	var Clock = __webpack_require__(175);
-=======
->>>>>>> cc3466f0082acf68e38a620d2dda56a4b90442b9
-	
-	var ClockBox = React.createClass({
-	  displayName: "ClockBox",
-	
-	
-	  getInitialState: function getInitialState() {
-	    return {
-	      time: null
-	    };
-	  },
-	
-	  render: function render() {
-	
-	    return React.createElement(
-	      "div",
-	      null,
-	      React.createElement(
-	        "h3",
-	        { id: "time" },
-	        myClock.clockText
-	      ),
-	      React.createElement(
-	        "button",
-	        { id: "start", onClick: myClock.start },
-	        "Start"
-	      ),
-	      React.createElement(
-	        "button",
-	        { id: "clear", onClick: myClock.clear },
-	        "Reset"
-	      )
-	    );
->>>>>>> 65c14a85f3dc08d2bd63057852fdd85d593f426a
-	  }
-	
-	});
-	
-<<<<<<< HEAD
-	module.exports = participant;
-=======
-	module.exports = ClockBox;
-
-/***/ },
-/* 175 */
-/***/ function(module, exports) {
-
-	"use strict";
-	
-	var Clock = function Clock(limit) {
-	  this.limit = limit;
-	  this.minutes = limit;
-	  this.seconds = 0;
-	  this.clockText = this.limit > 9 ? this.limit + ":00" : "0" + this.limit + ":00";
-	  this.stop = 1; // sets stop the clock on
-	
-	  //this.t = 0;
-	};
-	
-	Clock.prototype = {
-	
-	  start: function start() {
-	    setInterval(function () {
-	      if (this.minutes >= 0 && this.seconds >= -1) {
-	        this.seconds -= 1;
-	
-	        if (this.seconds < 0 && this.minutes >= 1) {
-	          this.minutes -= 1;
-	          this.seconds = 59;
-	        }
-	
-	        if (this.minutes === 0 && this.seconds === -1) {
-	          this.seconds = 0;
-	        }
-	
-	        this.clockText = (this.minutes ? this.minutes > 9 ? this.minutes : "0" + this.minutes : "00") + ":" + (this.seconds > 9 ? this.seconds : "0" + this.seconds);
-	      }
-	    }.bind(this), 1000);
-	  },
-	
-	  clear: function clear() {
-	    this.minutes = this.limit;
-	    this.seconds = 0;
-	    this.clockText = this.limit > 9 ? this.limit + ":00" : "0" + this.limit + ":00";
-	  }
-	
-	};
-	
-	module.exports = Clock;
-	
-	// while( this.minutes >= 0 ){
-	//   console.log( this )
-	//   this.seconds -= 1;
-	//   if (this.seconds === -1) {
-	//       this.seconds = 59;
-	//       this.minutes -= 1;
-	//     }
-	//   if ( this.minutes === 0 && this.seconds === 0 ){
-	//     break;
-	//   }
-	// }
-
-	// start: function(){
-	//   for ( this.minutes; this.minutes >= 0; this.minutes-- ) {
-	//       setInterval( function(){
-	//         for ( var j = ; this.seconds >= -1 )
-	//         this.seconds -= 1;
-	//
-	//         if (this.seconds < 0 && this.minutes >= 1){
-	//           this.minutes -= 1;
-	//           this.seconds = 59;
-	//         }
-	//
-	//         this.clockText = (this.minutes ? (this.minutes > 9 ? this.minutes : "0" + this.minutes) : "00")
-	//                             + ":" + (this.seconds > 9 ? this.seconds : "0" + this.seconds);
-	//
-	//         this.timeTag.innerText = this.clockText;
-	//       }.bind(this), 1000 );
-	//     }
-	//   },
->>>>>>> 65c14a85f3dc08d2bd63057852fdd85d593f426a
 
 /***/ }
 /******/ ]);

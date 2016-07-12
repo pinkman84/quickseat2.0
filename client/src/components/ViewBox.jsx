@@ -1,8 +1,6 @@
 const React = require('react');
 const ParticipantBox = require('./ParticipantBox.jsx')
-const ClockBox = require('./ClockBox.jsx')
-const Clock = require('./clock.js')
-
+const Clock = require('./Clock.jsx')
 
 const ViewBox = React.createClass({
 
@@ -38,14 +36,12 @@ const ViewBox = React.createClass({
     return list
   },
 
-  timer: function(){
-    let clock = new Clock
-    return clock(1)
-  },
+  // timer: function(){
+  //   let clock = new Clock
+  //   return clock(1)
+  // },
 
   render: function() {
-
-
 
     return (
       <div>
@@ -55,7 +51,7 @@ const ViewBox = React.createClass({
       <div className="students">
         <ParticipantBox participants = {this.filterParticipants('student')}/>
       </div>
-      <ClockBox className="clock" clock={this.timer}/>
+      <Clock className="clock" />
       </div>
     );
   }

@@ -4,7 +4,7 @@ const CreateBox = require('./components/CreateBox.jsx');
 
 window.onload = function(){
   ReactDOM.render(
-    <CreateBox url="localhost/3000/lists" />,
+    <CreateBox url="/lists" />,
     document.getElementById('app_create')
   );
 }
