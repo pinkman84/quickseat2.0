@@ -21108,20 +21108,14 @@
 	
 	    var list = this.props.participants.map(function (partInfo) {
 	      var logo = '';
-	      if (partInfo.type === 'employer') {
+	      if (partInfo.type === 'Employer') {
 	        logo = "//logo.clearbit.com/" + partInfo.name.toLowerCase().replace(/ /g, '') + ".com?size=40";
-	      } else if (partInfo.type === 'student') {
+	      } else if (partInfo.type === 'Student') {
 	        logo = 'picture';
 	      }return React.createElement(
 	        'div',
 	        { id: 'participant', key: partInfo._id },
-	        React.createElement(
-	          'h4',
-	          null,
-	          ' ',
-	          partInfo.name,
-	          ' '
-	        ),
+	        React.createElement(Individual, { participant: partInfo, pageState: this.props.pageState }),
 	        React.createElement('img', { src: logo })
 	      );
 	    });
@@ -21129,7 +21123,7 @@
 	    return React.createElement(
 	      'div',
 	      null,
-	      React.createElement(Individual, { participant: list, create: true })
+	      list
 	    );
 	  }
 	});
@@ -21153,7 +21147,7 @@
 	  getInitialState: function getInitialState() {
 	    return {
 	      participants: [],
-	      time: 10
+	      time: 600
 	    };
 	  },
 	
@@ -21169,6 +21163,7 @@
 	    request.open("GET", url);
 	    request.onload = function () {
 	      var list = JSON.parse(request.responseText);
+	      console.log('view request', request.responseText);
 	      this.setState({
 	        participants: list
 	      });
@@ -21184,10 +21179,11 @@
 	  },
 	
 	  displayTime: function displayTime() {
-	    setInterval(this.start, 1000);
+	    setInterval(this.start, 200);
 	  },
 	
 	  start: function start() {
+	
 	    var newTime = this.state.time;
 	    if (newTime) {
 	      newTime--;
@@ -21207,18 +21203,35 @@
 	  },
 	
 	  render: function render() {
+	
 	    return React.createElement(
 	      'div',
 	      null,
 	      React.createElement(
+	        'form',
+	        { method: 'get', action: './create.html' },
+	        React.createElement(
+	          'button',
+	          { type: 'submit' },
+	          'Create Event'
+	        )
+	      ),
+	      React.createElement(
 	        'div',
 	        { className: 'employers' },
-	        React.createElement(ParticipantBox, { participants: this.filterParticipants('employer'), changeOrder: this.shuffle(this.filterParticipants('employers')) })
+	        React.createElement(ParticipantBox, {
+	          participants: this.filterParticipants('employer'),
+	          changeOrder: this.shuffle(this.filterParticipants('employers')),
+	          pageState: 2
+	        })
 	      ),
 	      React.createElement(
 	        'div',
 	        { className: 'students' },
-	        React.createElement(ParticipantBox, { participants: this.filterParticipants('student') })
+	        React.createElement(ParticipantBox, {
+	          participants: this.filterParticipants('student'),
+	          pageState: 2
+	        })
 	      ),
 	      React.createElement(ClockBox, { className: 'clock', time: this.state.time, start: this.displayTime, reset: this.reset })
 	    );
@@ -22134,49 +22147,96 @@
 	
 	var React = __webpack_require__(1);
 	
-	var Individual = React.createClass({
-	  displayName: 'Individual',
+	var CreateIndividual = React.createClass({
+	  displayName: 'CreateIndividual',
 	
+	  getInitialState: function getInitialState() {
+	    return { available: true, eventArray: [] };
+	  },
 	
-	  handleClose: function () {
-	    this.parentNode.removeChild(this.parentNode);return false;
-	  }.bind(undefined),
+	  handleAdd: function handleAdd() {
+	    this.setState({ available: true });
+	  },
+	
+	  handleClose: function handleClose() {
+	    this.setState({ available: false });
+	  },
 	
 	  render: function render() {
 	
-	    var buttonState = function buttonState() {
-	      if (true) {
-	        return React.createElement(
-	          'span',
+	    var name = this.props.participant.name;
+	
+	    var createView = function createView() {
+	      // do create page logic
+	      var aButton = React.createElement(
+	        'button',
+	        { id: 'add' },
+	        'Add Participant'
+	      );
+	
+	      if (this.state.available === false) {
+	        eventArray.push(this.props.participant);
+	      } else {}
+	      return React.createElement(
+	        'div',
+	        { className: 'individual' },
+	        aButton,
+	        React.createElement(
+	          'h4',
+	          null,
+	          name
+	        )
+	      );
+	    };
+	
+	    var eventView = function eventView() {
+	      // do view page logic
+	      var aButton = React.createElement(
+	        'button',
+	        { id: 'close', onClick: this.handleClose },
+	        'x'
+	      );
+	
+	      if (this.state.available === false) {
+	        name = "Unavailable";
+	        aButton = React.createElement(
+	          'button',
+	          { id: 'add', onClick: this.handleAdd },
+	          '+'
+	        );
+	      } else {
+	        name = this.props.participant.name;
+	        aButton = React.createElement(
+	          'button',
 	          { id: 'close', onClick: this.handleClose },
 	          'x'
 	        );
-	      } else {
-	        return React.createElement(
-	          'span',
-	          { id: 'add', onClick: this.handleClose },
-	          '+'
-	        );
 	      }
+	      return React.createElement(
+	        'div',
+	        { className: 'individual' },
+	        aButton,
+	        React.createElement(
+	          'h4',
+	          null,
+	          name
+	        )
+	      );
 	    };
 	
-	    return React.createElement(
-	      'div',
-	      { className: 'individual' },
-	      buttonState,
-	      React.createElement(
-	        'h4',
-	        null,
-	        ' ',
-	        this.props.participant.name,
-	        ' '
-	      )
-	    );
+	    var eventFormat = React.createElement('div', null);
+	    if (this.props.pageState === 1) {
+	      eventFormat = eventView();
+	    } else {
+	      eventFormat = createView();
+	    }
+	
+	    return { eventFormat: eventFormat };
 	  }
 	
 	});
 	
-	module.exports = Individual;
+	module.exports = CreateIndividual;
 
 /***/ }
 /******/ ]);

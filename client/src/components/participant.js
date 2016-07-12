@@ -1,4 +1,4 @@
-var Participant = function(name, type, image, number){
+ var Participant = function(name, type, image, number){
   this.name = name;
   this.type = type;
 	this.image = image;

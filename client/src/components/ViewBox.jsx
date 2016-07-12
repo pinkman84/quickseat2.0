@@ -1,13 +1,13 @@
 const React = require('react');
-const ParticipantBox = require('./ParticipantBox.jsx');
-const ClockBox = require('./ClockBox.jsx');
+const ParticipantBox = require('./ParticipantBox.jsx')
+const ClockBox = require('./ClockBox.jsx')
 
 const ViewBox = React.createClass({
 
   getInitialState: function() {
     return {
       participants: [],
-      time: 10
+      time: 600
     };
   },
 
@@ -23,6 +23,7 @@ const ViewBox = React.createClass({
     request.open("GET", url)
     request.onload = function(){
       let list = JSON.parse(request.responseText);
+      console.log('view request', request.responseText);
       this.setState({
         participants: list
       });
@@ -38,10 +39,11 @@ const ViewBox = React.createClass({
   },
 
   displayTime: function(){
-      setInterval(this.start, 1000)
+      setInterval(this.start, 200)
   },
 
   start: function(){
+
     let newTime = this.state.time
     if(newTime){
       newTime --
@@ -62,13 +64,24 @@ const ViewBox = React.createClass({
   },
 
   render: function() {
+
     return (
       <div>
+      <form method="get" action="./create.html">
+        <button type="submit">Create Event</button>
+      </form>
       <div className="employers">
-        <ParticipantBox participants = {this.filterParticipants('employer')} changeOrder={this.shuffle(this.filterParticipants('employers'))}/>
+        <ParticipantBox
+          participants={ this.filterParticipants('employer') }
+          changeOrder={ this.shuffle(this.filterParticipants('employers')) }
+          pageState={ 2 }
+        />
       </div>
       <div className="students">
-        <ParticipantBox participants = {this.filterParticipants('student')}/>
+        <ParticipantBox
+          participants={ this.filterParticipants('student')}
+          pageState={ 2 }
+        />
       </div>
       <ClockBox className="clock" time={this.state.time} start={this.displayTime} reset={this.reset}/>
       </div>

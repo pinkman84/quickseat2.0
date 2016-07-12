@@ -7,20 +7,20 @@ var ParticipantBox = React.createClass({
 
     const list = this.props.participants.map(function(partInfo){
       let logo = '';
-      if ( partInfo.type === 'employer' ) {
+      if ( partInfo.type === 'Employer' ) {
         logo = "//logo.clearbit.com/" + partInfo.name.toLowerCase().replace(/ /g,'') +".com?size=40"
-      } else if ( partInfo.type === 'student') {
+      } else if ( partInfo.type === 'Student') {
         logo = 'picture'
       } return (
         <div id="participant" key={ partInfo._id }>
-          <h4> {partInfo.name} </h4>
+          <Individual participant={ partInfo } pageState={ this.props.pageState }/>
           <img src={logo}/>
         </div> )
       });
 
     return (
       <div>
-        <Individual participant={list} create={true} />
+        {list}
       </div>
       );
   }
