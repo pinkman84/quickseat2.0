@@ -5,6 +5,36 @@ var ParticipantBox = React.createClass({
 
   render: function() {
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     const list = this.props.participants.map(function(partInfo){
       let logo = '';
       if ( partInfo.type === 'Employer' ) {
