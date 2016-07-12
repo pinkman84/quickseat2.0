@@ -3,9 +3,6 @@ const numeral = require('numeral');
 
 let ClockBox = React.createClass({
 
-
-
-
   render: function() {
 
     return (

@@ -51,7 +51,7 @@
 	var CreateBox = __webpack_require__(170);
 	
 	window.onload = function () {
-	  ReactDOM.render(React.createElement(CreateBox, { url: 'localhost/3000/lists' }), document.getElementById('app_create'));
+	  ReactDOM.render(React.createElement(CreateBox, { url: '/lists' }), document.getElementById('app_create'));
 	};
 
 /***/ },
@@ -20976,52 +20976,71 @@
 	'use strict';
 	
 	var React = __webpack_require__(1);
-	var CreateForm = __webpack_require__(171);
-	var ParticipantBox = __webpack_require__(172);
+	var Participant = __webpack_require__(171);
+	var CreateForm = __webpack_require__(172);
+	var ParticipantBox = __webpack_require__(173);
 	
 	var CreateBox = React.createClass({
 	  displayName: 'CreateBox',
 	
 	
 	  getInitialState: function getInitialState() {
-	    return { employers: [], students: [] };
+	    return {
+	      participants: []
+	    };
 	  },
 	
 	  componentDidMount: function componentDidMount() {
+	    console.log("mounted");
 	    this.fetchLists();
 	  },
 	
 	  fetchLists: function fetchLists() {
-	    var request = new XMLRequest();
-	    request.open("GET", this.props.url);
+	    console.log('CDM was called');
+	    var url = this.props.url;
+	    var request = new XMLHttpRequest();
+	    request.open("GET", url);
 	    request.onload = function () {
-	      var lists = JSON.parse(request.responseText);
-	      for (var i = 0; i < lists.length; i++) {
-	        if (lists[i].type === 'employer') {
-	          this.addEmployer(lists[i]);
-	        } else {
-	          this.addStudent(lists[i]);
-	        }
-	      }
+	      var list = JSON.parse(request.responseText);
+	      console.log('request', request.responseText);
+	      this.setState({
+	        participants: list
+	      });
+	      console.log('state', this.state.participants);
 	    }.bind(this);
-	    request.send(null);
+	    request.send();
 	  },
 	
-	  addEmployer: function addEmployer(employer) {
-	    this.state.employers.push(employer);
+	  filterParticipants: function filterParticipants(type) {
+	    var list = this.state.participants.filter(function (participant) {
+	      return participant.type === type;
+	    });
+	    return list;
 	  },
 	
-	  addStudent: function addStudent(student) {
-	    this.state.students.push(student);
+	  handlePartySubmit: function handlePartySubmit(name, type, image, number) {
+	    console.log('trying to save', name);
+	    var newParticipant = new Participant(name, type, image, number);
+	    console.log('newParticipant', newParticipant);
+	    newParticipant.save();
+	    this.fetchLists();
 	  },
 	
 	  render: function render() {
 	    return React.createElement(
 	      'div',
 	      null,
-	      React.createElement(CreateForm, null),
-	      React.createElement(ParticipantBox, { employersList: this.state.employers }),
-	      React.createElement(ParticipantBox, { studentsList: this.state.students })
+	      React.createElement(CreateForm, { handlePartySubmit: this.handlePartySubmit }),
+	      React.createElement(
+	        'div',
+	        { className: 'employers' },
+	        React.createElement(ParticipantBox, { participants: this.filterParticipants('Employer') })
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'students' },
+	        React.createElement(ParticipantBox, { participants: this.filterParticipants('Student') })
+	      )
 	    );
 	  }
 	
@@ -21031,6 +21050,37 @@
 
 /***/ },
 /* 171 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	var Participant = function Participant(name, type, image, number) {
+	  this.name = name;
+	  this.type = type;
+	  this.image = image;
+	  this.number = number;
+	  this.hasMet = [];
+	};
+	
+	Participant.prototype = {
+	
+	  save: function save() {
+	    var url = 'http://localhost:3000/lists';
+	    var request = new XMLHttpRequest();
+	    request.open("POST", url);
+	    request.setRequestHeader("Content-Type", "application/json");
+	    request.onload = function () {
+	      if (request.status === 200) {}
+	    };
+	    request.send(JSON.stringify(this));
+	  }
+	
+	};
+	
+	module.exports = Participant;
+
+/***/ },
+/* 172 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21038,76 +21088,80 @@
 	var React = __webpack_require__(1);
 	
 	var CreateForm = React.createClass({
-			displayName: 'CreateForm',
+	  displayName: 'CreateForm',
 	
-			getInitialState: function getInitialState() {
-					return { name: '', type: '' };
-			},
-			handleNameChange: function handleNameChange(e) {
-					this.setState({ name: e.target.value });
-			},
-			handleClick: function handleClick() {
-					var type = React.findDOMNode(this.refs.typeSelect).value;
-					this.setState({ type: type });
-					this.handleSubmit;
-			},
-			// handlePictureChange: function(e) {
-			//   this.setState({picture: e.target.value});
-			// },
-			handleSubmit: function handleSubmit(e) {
-					e.preventDefault();
-					var name = this.state.name.trim();
-					var type = this.state.type;
 	
-					if (!name || !type) {
-							return;
-					}
+	  getInitialState: function getInitialState() {
+	    return { name: '', type: '', image: '', number: '' };
+	  },
+	  // handleNameChange: function(e) {
+	  //   this.setState({name: e.target.value});
+	  // },
+	  // handlePictureChange: function(e) {
+	  //   this.setState({picture: e.target.value});
+	  // },
+	  handleSubmit: function handleSubmit(e) {
+	    console.log('ive been submitted');
+	    e.preventDefault();
+	    var name = this.state.name.trim();
+	    var type = this.state.type.trim();
+	    // if (!type || !name) {
+	    //   return;
+	    // }
+	    this.props.handlePartySubmit(this.state.name, this.state.type, this.state.image, this.state.number);
+	    this.setState({ name: '', type: '', image: '', number: '' });
+	  },
 	
-					this.props.onPartySubmit({ name: name, type: type });
-					this.setState({ name: '', text: '' });
-			},
-			render: function render() {
-					return React.createElement(
-							'div',
-							null,
-							React.createElement(
-									'form',
-									{ className: 'partyForm', onSubmit: this.handleSubmit },
-									React.createElement('input', {
-											type: 'text',
-											placeholder: 'Name',
-											value: this.state.Name,
-											onChange: this.handleNameChange
-									}),
-									React.createElement('input', { type: 'submit', value: 'Add Participant' })
-							),
-							React.createElement(
-									'select',
-									{ className: 'Type', ref: 'typeSelect' },
-									React.createElement(
-											'option',
-											{ value: 'Employer' },
-											'Employer'
-									),
-									React.createElement(
-											'option',
-											{ value: 'Student' },
-											'Student'
-									)
-							),
-							React.createElement(
-									'button',
-									{ onClick: this.handleClick },
-									'Submit'
-							)
-					);
-			}
+	  handleNameChange: function handleNameChange(e) {
+	    var newName = e.target.value;
+	    this.setState({ name: newName });
+	  },
+	
+	  handleType: function handleType(e) {
+	    var newType = e.target.value;
+	    this.setState({ type: newType });
+	  },
+	
+	  render: function render() {
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'form',
+	        { className: 'partyForm', onSubmit: this.handleSubmit },
+	        React.createElement('input', {
+	          type: 'text', placeholder: 'Name',
+	          onChange: this.handleNameChange,
+	          value: this.state.name }),
+	        React.createElement(
+	          'select',
+	          { className: 'type', value: this.state.type, onChange: this.handleType },
+	          React.createElement(
+	            'option',
+	            null,
+	            '--'
+	          ),
+	          React.createElement(
+	            'option',
+	            null,
+	            'Employer'
+	          ),
+	          React.createElement(
+	            'option',
+	            null,
+	            'Student'
+	          )
+	        ),
+	        React.createElement('input', { type: 'submit', value: 'Post' })
+	      )
+	    );
+	  }
 	});
 	
 	module.exports = CreateForm;
 
 /***/ },
-/* 172 */
+/* 173 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21120,13 +21174,15 @@
 	
 	
 	  render: function render() {
+	
 	    var list = this.props.participants.map(function (partInfo) {
 	      if (partInfo.type === 'employer') {
 	        var logo = "//logo.clearbit.com/" + partInfo.name.toLowerCase().replace(/ /g, '') + ".com?size=40";
 	      }
+	
 	      return React.createElement(
 	        'div',
-	        { id: 'participant', key: partInfo.id },
+	        { id: 'participant', key: partInfo._id },
 	        React.createElement(
 	          'h4',
 	          null,

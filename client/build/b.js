@@ -48,7 +48,7 @@
 	
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(33);
-	var ViewBox = __webpack_require__(173);
+	var ViewBox = __webpack_require__(174);
 	var Canvas = __webpack_require__(177);
 	
 	window.onload = function () {
@@ -20974,7 +20974,8 @@
 /***/ },
 /* 170 */,
 /* 171 */,
-/* 172 */
+/* 172 */,
+/* 173 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -20987,13 +20988,15 @@
 	
 	
 	  render: function render() {
+	
 	    var list = this.props.participants.map(function (partInfo) {
 	      if (partInfo.type === 'employer') {
 	        var logo = "//logo.clearbit.com/" + partInfo.name.toLowerCase().replace(/ /g, '') + ".com?size=40";
 	      }
+	
 	      return React.createElement(
 	        'div',
-	        { id: 'participant', key: partInfo.id },
+	        { id: 'participant', key: partInfo._id },
 	        React.createElement(
 	          'h4',
 	          null,
@@ -21017,14 +21020,14 @@
 	module.exports = ParticipantBox;
 
 /***/ },
-/* 173 */
+/* 174 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	var React = __webpack_require__(1);
-	var ParticipantBox = __webpack_require__(172);
-	var ClockBox = __webpack_require__(174);
+	var ParticipantBox = __webpack_require__(173);
+	var ClockBox = __webpack_require__(175);
 	
 	var ViewBox = React.createClass({
 	  displayName: 'ViewBox',
@@ -21049,6 +21052,7 @@
 	    request.open("GET", url);
 	    request.onload = function () {
 	      var list = JSON.parse(request.responseText);
+	      console.log('view request', request.responseText);
 	      this.setState({
 	        participants: list
 	      });
@@ -21110,13 +21114,13 @@
 	module.exports = ViewBox;
 
 /***/ },
-/* 174 */
+/* 175 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	var React = __webpack_require__(1);
-	var numeral = __webpack_require__(175);
+	var numeral = __webpack_require__(176);
 	
 	var ClockBox = React.createClass({
 	  displayName: 'ClockBox',
@@ -21150,7 +21154,7 @@
 	module.exports = ClockBox;
 
 /***/ },
-/* 175 */
+/* 176 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -21835,7 +21839,6 @@
 
 
 /***/ },
-/* 176 */,
 /* 177 */
 /***/ function(module, exports) {
 

@@ -2,10 +2,8 @@ const React = require('react');
 const ParticipantBox = require('./ParticipantBox.jsx')
 const ClockBox = require('./ClockBox.jsx')
 
-
-
 const ViewBox = React.createClass({
-  
+
   getInitialState: function() {
     return {
       participants: [],
@@ -25,6 +23,7 @@ const ViewBox = React.createClass({
     request.open("GET", url)
     request.onload = function(){
       let list = JSON.parse(request.responseText);
+      console.log('view request', request.responseText);
       this.setState({
         participants: list
       });
@@ -42,7 +41,6 @@ const ViewBox = React.createClass({
   displayTime: function(){
       setInterval(this.start, 200)
   },
-
 
   start: function(){
 
