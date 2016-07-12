@@ -1,5 +1,6 @@
 const React = require('react');
 const CreateForm = require('./CreateForm.jsx')
+const ParticipantBox = require('./ParticipantBox.jsx')
 
 let CreateBox = React.createClass({
 
@@ -47,4 +48,4 @@ let CreateBox = React.createClass({
 
 });
 
-module.exports = ViewBox;
+module.exports = CreateBox;

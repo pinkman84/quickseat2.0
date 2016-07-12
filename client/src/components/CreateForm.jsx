@@ -49,4 +49,4 @@ let CreateForm = React.createClass({
   }
 });
 
-module.exports = CommentForm;
+module.exports = CreateForm;

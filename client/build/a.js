@@ -20977,6 +20977,7 @@
 	
 	var React = __webpack_require__(1);
 	var CreateForm = __webpack_require__(171);
+	var ParticipantBox = __webpack_require__(172);
 	
 	var CreateBox = React.createClass({
 	  displayName: 'CreateBox',
@@ -21026,7 +21027,7 @@
 	
 	});
 	
-	module.exports = ViewBox;
+	module.exports = CreateBox;
 
 /***/ },
 /* 171 */
@@ -21103,7 +21104,50 @@
 			}
 	});
 	
-	module.exports = CommentForm;
+	module.exports = CreateForm;
+
+/***/ },
+/* 172 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(1);
+	// const Participant = require('./participant.jsx')
+	
+	var ParticipantBox = React.createClass({
+	  displayName: 'ParticipantBox',
+	
+	
+	  render: function render() {
+	    var list = this.props.participants.map(function (partInfo) {
+	      if (partInfo.type === 'employer') {
+	        var _logo = "//logo.clearbit.com/" + partInfo.name.toLowerCase().replace(/ /g, '') + ".com?size=40";
+	      }
+	      return React.createElement(
+	        'div',
+	        { id: 'participant', key: partInfo.id },
+	        React.createElement(
+	          'h4',
+	          null,
+	          ' ',
+	          partInfo.name,
+	          ' '
+	        ),
+	        React.createElement('img', { src: logo })
+	      );
+	    });
+	
+	    return React.createElement(
+	      'div',
+	      null,
+	      list
+	    );
+	  }
+	
+	});
+	
+	module.exports = ParticipantBox;
 
 /***/ }
 /******/ ]);

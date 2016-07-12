@@ -1,15 +1,18 @@
 const React = require('react');
-
+const numeral = require('numeral');
 
 let ClockBox = React.createClass({
 
+
+
+
   render: function() {
-    console.log('cbox',this.props.clock.clockText);
+
     return (
       <div>
-        <h3 id="time">{this.props.clock.clockText}</h3>
+        <h3 id="time">{numeral(this.props.time).format('00:00:00')}</h3>
         <button id="start" onClick={this.props.start}>Start</button>
-        <button id="clear" onClick={this.reset}>Reset</button>
+        <button id="clear" onClick={this.props.reset}>Reset</button>
 
       </div>
     );
