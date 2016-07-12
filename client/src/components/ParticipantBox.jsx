@@ -1,5 +1,5 @@
 const React = require('react');
-// const Participant = require('./participant.jsx')
+const Individual = require('./Individual.jsx');
 
 var ParticipantBox = React.createClass({
 
@@ -9,15 +9,12 @@ var ParticipantBox = React.createClass({
       if(partInfo.type === 'Employer'){
         var logo = "//logo.clearbit.com/" + partInfo.name.toLowerCase().replace(/ /g,'') +".com?size=40"
          var picture = <img className="profiles" src={logo} width="80" height="80"/>
-      }
-      else{
+      } else {
         logo = "/images/" + partInfo.name + ".jpg"
         picture = <img className="profiles" src={logo} width="80" height="120"/>
-      }
-
-      return(
+      } return (
         <div id="participant" key={ partInfo._id } draggable="true">
-          <h4> {partInfo.name} </h4>
+          <Individual participant={ partInfo } pageState={ this.props.pageState }/>
           {picture}
         </div>
         )
@@ -29,7 +26,6 @@ var ParticipantBox = React.createClass({
       </div>
       );
   }
-
 });
 
 module.exports = ParticipantBox;

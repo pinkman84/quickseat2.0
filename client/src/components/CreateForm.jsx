@@ -5,9 +5,6 @@ let CreateForm = React.createClass( {
   getInitialState: function() {
     return { name: '', type: '', image: '', number: '' };
   },
-  // handleNameChange: function(e) {
-  //   this.setState({name: e.target.value});
-  // },
 	// handlePictureChange: function(e) {
 	//   this.setState({picture: e.target.value});
 	// },
@@ -53,7 +50,7 @@ let CreateForm = React.createClass( {
   			<form className="partyForm" onSubmit={this.handleSubmit}>
   				<input
             type="text" placeholder="Name"
-            onChange={this.handleNameChange} 
+            onChange={this.handleNameChange}
             value={this.state.name} />
           <select className="type" value={this.state.type} onChange={this.handleType}>
             <option>--</option>

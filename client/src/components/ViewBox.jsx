@@ -57,15 +57,25 @@ const ViewBox = React.createClass({
     this.setState({time: 600})
       },
 
- 
+
   render: function() {
+
     return (
       <div>
+      <form method="get" action="./create.html">
+        <button type="submit">Create Event</button>
+      </form>
       <div className="employers">
-        <ParticipantBox participants = {this.filterParticipants('Employer')} />
+        <ParticipantBox
+          participants={ this.filterParticipants('Employer') }
+          pageState={ 2 }
+        />
       </div>
       <div className="students">
-        <ParticipantBox participants = {this.filterParticipants('Student')}/>
+        <ParticipantBox
+          participants={ this.filterParticipants('student')}
+          pageState={ 2 }
+        />
       </div>
       <ClockBox className="clock" time={this.state.time} start={this.displayTime} reset={this.reset}/>
       </div>

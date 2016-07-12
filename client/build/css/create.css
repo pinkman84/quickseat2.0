@@ -1,12 +1,12 @@
-body{
+body {
   background: #b3ffe7;
 
   /*background-image: green;*/
   background-size: 100%;
   background-repeat: no-repeat;
 }
-button {
 
+#button1 {
   background: linear-gradient(#006644, #003322);
   border: none;
   color: white;
@@ -19,10 +19,10 @@ button {
   /*padding: 20px 200px;*/
 }
 
-button:hover {
+#button1:hover {
   background: linear-gradient(#004d1a, #006644);
- border:#003322;
- margin: 2px solid #003322;
+  border:#003322;
+  margin: 2px solid #003322;
 }
 
 h1 {

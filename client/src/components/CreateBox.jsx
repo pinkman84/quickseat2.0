@@ -7,7 +7,7 @@ let CreateBox = React.createClass({
 
   getInitialState: function() {
     return {
-      participants: []
+      participants: [],
     };
   },
 
@@ -16,7 +16,7 @@ let CreateBox = React.createClass({
     this.fetchLists();
   },
 
-  fetchLists: function(){
+  fetchLists: function() {
     console.log('CDM was called');
     let url = this.props.url
     let request = new XMLHttpRequest();
@@ -32,7 +32,7 @@ let CreateBox = React.createClass({
     request.send();
   },
 
-  filterParticipants: function(type){
+  filterParticipants: function(type) {
     let list = this.state.participants.filter(function(participant){
       return (participant.type === type)
     })
@@ -52,15 +52,22 @@ let CreateBox = React.createClass({
   },
 
   render: function() {
+
     return (
       <div>
-        <CreateForm handlePartySubmit = {this.handlePartySubmit} image={this.imageDisplay}/>
-        <div className="employers">
-          <ParticipantBox participants = {this.filterParticipants('Employer')}/>
-        </div>
-        <div className="students">
-          <ParticipantBox participants = {this.filterParticipants('Student')} image={this.imageDisplay}/>
-        </div>
+      <CreateForm handlePartySubmit = {this.handlePartySubmit}/>
+      <div className="employers">
+        <ParticipantBox
+          participants={ this.filterParticipants('Employer') }
+          pageState={ 1 }
+        />
+      </div>
+      <div className="students">
+        <ParticipantBox
+          participants = {this.filterParticipants('Student')}
+          pageState={ 1 }
+        />
+      </div>
       </div>
     );
   }
