@@ -47,13 +47,14 @@ let CreateBox = React.createClass({
     this.fetchLists()
   },
 
+  imageDisplay: function(image){
+    return image
+  },
+
   render: function() {
 
     return (
       <div>
-      <form method="get" action="./view.html">
-        <button type="submit">View Event</button>
-      </form>
       <CreateForm handlePartySubmit = {this.handlePartySubmit}/>
       <div className="employers">
         <ParticipantBox

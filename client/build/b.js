@@ -48,8 +48,8 @@
 	
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(33);
-	var ViewBox = __webpack_require__(176);
-	var Canvas = __webpack_require__(179);
+	var ViewBox = __webpack_require__(177);
+	var Canvas = __webpack_require__(180);
 	
 	window.onload = function () {
 	  ReactDOM.render(React.createElement(ViewBox, { url: '/lists' }), document.getElementById('app_view'));
@@ -21098,7 +21098,7 @@
 	'use strict';
 	
 	var React = __webpack_require__(1);
-	var Individual = __webpack_require__(180);
+	var Individual = __webpack_require__(176);
 	
 	var ParticipantBox = React.createClass({
 	  displayName: 'ParticipantBox',
@@ -21107,16 +21107,17 @@
 	  render: function render() {
 	
 	    var list = this.props.participants.map(function (partInfo) {
-	      var logo = '';
 	      if (partInfo.type === 'Employer') {
-	        logo = "//logo.clearbit.com/" + partInfo.name.toLowerCase().replace(/ /g, '') + ".com?size=40";
-	      } else if (partInfo.type === 'Student') {
-	        logo = 'picture';
+	        var logo = "//logo.clearbit.com/" + partInfo.name.toLowerCase().replace(/ /g, '') + ".com?size=40";
+	        var picture = React.createElement('img', { className: 'profiles', src: logo, width: '80', height: '80' });
+	      } else {
+	        logo = "/images/" + partInfo.name + ".jpg";
+	        picture = React.createElement('img', { className: 'profiles', src: logo, width: '80', height: '120' });
 	      }return React.createElement(
 	        'div',
-	        { id: 'participant', key: partInfo._id },
+	        { id: 'participant', key: partInfo._id, draggable: 'true' },
 	        React.createElement(Individual, { participant: partInfo, pageState: this.props.pageState }),
-	        React.createElement('img', { src: logo })
+	        picture
 	      );
 	    });
 	
@@ -21137,8 +21138,107 @@
 	'use strict';
 	
 	var React = __webpack_require__(1);
+	
+	var CreateIndividual = React.createClass({
+	  displayName: 'CreateIndividual',
+	
+	  getInitialState: function getInitialState() {
+	    return { available: true, eventArray: [] };
+	  },
+	
+	  handleAdd: function handleAdd() {
+	    this.setState({ available: true });
+	  },
+	
+	  handleClose: function handleClose() {
+	    this.setState({ available: false });
+	  },
+	
+	  render: function render() {
+	
+	    var name = this.props.participant.name;
+	
+	    var createView = function createView() {
+	      // do create page logic
+	      var aButton = React.createElement(
+	        'button',
+	        { id: 'add' },
+	        'Add Participant'
+	      );
+	
+	      if (this.state.available === false) {
+	        eventArray.push(this.props.participant);
+	      } else {}
+	      return React.createElement(
+	        'div',
+	        { className: 'individual' },
+	        aButton,
+	        React.createElement(
+	          'h4',
+	          null,
+	          name
+	        )
+	      );
+	    };
+	
+	    var eventView = function eventView() {
+	      // do view page logic
+	      var aButton = React.createElement(
+	        'button',
+	        { id: 'close', onClick: this.handleClose },
+	        'x'
+	      );
+	
+	      if (this.state.available === false) {
+	        name = "Unavailable";
+	        aButton = React.createElement(
+	          'button',
+	          { id: 'add', onClick: this.handleAdd },
+	          '+'
+	        );
+	      } else {
+	        name = this.props.participant.name;
+	        aButton = React.createElement(
+	          'button',
+	          { id: 'close', onClick: this.handleClose },
+	          'x'
+	        );
+	      }
+	      return React.createElement(
+	        'div',
+	        { className: 'individual' },
+	        aButton,
+	        React.createElement(
+	          'h4',
+	          null,
+	          name
+	        )
+	      );
+	    };
+	
+	    var eventFormat = React.createElement('div', null);
+	    if (this.props.pageState === 1) {
+	      eventFormat = eventView();
+	    } else {
+	      eventFormat = createView();
+	    }
+	
+	    return { eventFormat: eventFormat };
+	  }
+	
+	});
+	
+	module.exports = CreateIndividual;
+
+/***/ },
+/* 177 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(1);
 	var ParticipantBox = __webpack_require__(175);
-	var ClockBox = __webpack_require__(177);
+	var ClockBox = __webpack_require__(178);
 	
 	var ViewBox = React.createClass({
 	  displayName: 'ViewBox',
@@ -21161,6 +21261,7 @@
 	    var url = this.props.url;
 	    var request = new XMLHttpRequest();
 	    request.open("GET", url);
+	    console.log(request);
 	    request.onload = function () {
 	      var list = JSON.parse(request.responseText);
 	      console.log('view request', request.responseText);
@@ -21193,13 +21294,7 @@
 	
 	  reset: function reset() {
 	    console.log('reset button');
-	    // this.shuffle()
 	    this.setState({ time: 600 });
-	  },
-	
-	  shuffle: function shuffle(participantList) {
-	    var lastEmployer = participantList.pop();
-	    var newOrder = participantList.unshift(lastEmployer);
 	  },
 	
 	  render: function render() {
@@ -21220,8 +21315,7 @@
 	        'div',
 	        { className: 'employers' },
 	        React.createElement(ParticipantBox, {
-	          participants: this.filterParticipants('employer'),
-	          changeOrder: this.shuffle(this.filterParticipants('employers')),
+	          participants: this.filterParticipants('Employer'),
 	          pageState: 2
 	        })
 	      ),
@@ -21242,13 +21336,13 @@
 	module.exports = ViewBox;
 
 /***/ },
-/* 177 */
+/* 178 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	var React = __webpack_require__(1);
-	var numeral = __webpack_require__(178);
+	var numeral = __webpack_require__(179);
 	
 	var ClockBox = React.createClass({
 	  displayName: 'ClockBox',
@@ -21282,7 +21376,7 @@
 	module.exports = ClockBox;
 
 /***/ },
-/* 178 */
+/* 179 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -21967,7 +22061,7 @@
 
 
 /***/ },
-/* 179 */
+/* 180 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -22138,105 +22232,6 @@
 	};
 	
 	module.exports = CanvasState;
-
-/***/ },
-/* 180 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var React = __webpack_require__(1);
-	
-	var CreateIndividual = React.createClass({
-	  displayName: 'CreateIndividual',
-	
-	  getInitialState: function getInitialState() {
-	    return { available: true, eventArray: [] };
-	  },
-	
-	  handleAdd: function handleAdd() {
-	    this.setState({ available: true });
-	  },
-	
-	  handleClose: function handleClose() {
-	    this.setState({ available: false });
-	  },
-	
-	  render: function render() {
-	
-	    var name = this.props.participant.name;
-	
-	    var createView = function createView() {
-	      // do create page logic
-	      var aButton = React.createElement(
-	        'button',
-	        { id: 'add' },
-	        'Add Participant'
-	      );
-	
-	      if (this.state.available === false) {
-	        eventArray.push(this.props.participant);
-	      } else {}
-	      return React.createElement(
-	        'div',
-	        { className: 'individual' },
-	        aButton,
-	        React.createElement(
-	          'h4',
-	          null,
-	          name
-	        )
-	      );
-	    };
-	
-	    var eventView = function eventView() {
-	      // do view page logic
-	      var aButton = React.createElement(
-	        'button',
-	        { id: 'close', onClick: this.handleClose },
-	        'x'
-	      );
-	
-	      if (this.state.available === false) {
-	        name = "Unavailable";
-	        aButton = React.createElement(
-	          'button',
-	          { id: 'add', onClick: this.handleAdd },
-	          '+'
-	        );
-	      } else {
-	        name = this.props.participant.name;
-	        aButton = React.createElement(
-	          'button',
-	          { id: 'close', onClick: this.handleClose },
-	          'x'
-	        );
-	      }
-	      return React.createElement(
-	        'div',
-	        { className: 'individual' },
-	        aButton,
-	        React.createElement(
-	          'h4',
-	          null,
-	          name
-	        )
-	      );
-	    };
-	
-	    var eventFormat = React.createElement('div', null);
-	    if (this.props.pageState === 1) {
-	      eventFormat = eventView();
-	    } else {
-	      eventFormat = createView();
-	    }
-	
-	    return { eventFormat: eventFormat };
-	  }
-	
-	});
-	
-	module.exports = CreateIndividual;
 
 /***/ }
 /******/ ]);

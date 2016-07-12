@@ -5,6 +5,12 @@ body{
   background-size: 100%;
   background-repeat: no-repeat;
 }
+#app-view{
+  width:25%;
+  float: right;
+  position: relative;
+  z-index: 1;
+}
 
 canvas {
   border: 5px solid #006644;
@@ -12,6 +18,8 @@ canvas {
   background-repeat: no-repeat;
   background-size: 110%;
   display: inline-block;
+  position: absolute;
+  z-index: 2;
   /*width: 50%;*/
   /*padding-top: 50px;*/
 }

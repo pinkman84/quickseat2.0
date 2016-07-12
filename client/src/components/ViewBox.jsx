@@ -21,6 +21,7 @@ const ViewBox = React.createClass({
     let url = this.props.url
     let request = new XMLHttpRequest();
     request.open("GET", url)
+    console.log(request);
     request.onload = function(){
       let list = JSON.parse(request.responseText);
       console.log('view request', request.responseText);
@@ -53,15 +54,9 @@ const ViewBox = React.createClass({
 
   reset: function(){
     console.log('reset button');
-    // this.shuffle()
     this.setState({time: 600})
       },
 
-  shuffle: function(participantList){
-    let lastEmployer = participantList.pop()
-    let newOrder = participantList.unshift(lastEmployer)
-
-  },
 
   render: function() {
 
@@ -72,8 +67,7 @@ const ViewBox = React.createClass({
       </form>
       <div className="employers">
         <ParticipantBox
-          participants={ this.filterParticipants('employer') }
-          changeOrder={ this.shuffle(this.filterParticipants('employers')) }
+          participants={ this.filterParticipants('Employer') }
           pageState={ 2 }
         />
       </div>

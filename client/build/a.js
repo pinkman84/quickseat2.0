@@ -21143,20 +21143,15 @@
 	    this.fetchLists();
 	  },
 	
+	  imageDisplay: function imageDisplay(image) {
+	    return image;
+	  },
+	
 	  render: function render() {
 	
 	    return React.createElement(
 	      'div',
 	      null,
-	      React.createElement(
-	        'form',
-	        { method: 'get', action: './view.html' },
-	        React.createElement(
-	          'button',
-	          { type: 'submit' },
-	          'View Event'
-	        )
-	      ),
 	      React.createElement(CreateForm, { handlePartySubmit: this.handlePartySubmit }),
 	      React.createElement(
 	        'div',
@@ -21250,6 +21245,20 @@
 	  handleType: function handleType(e) {
 	    var newType = e.target.value;
 	    this.setState({ type: newType });
+	    if (e.target.value === 'Student') {
+	
+	      this.image();
+	    }
+	  },
+	
+	  handleImage: function handleImage(e) {
+	    var newImg = e.target.value;
+	    this.setState({ image: newImg });
+	  },
+	
+	  image: function image() {
+	    var image = this.refs.image;
+	    image.style.visibility = "visible";
 	  },
 	
 	  render: function render() {
@@ -21282,6 +21291,7 @@
 	            'Student'
 	          )
 	        ),
+	        React.createElement('input', { ref: 'image', id: 'std-img', type: 'file', name: 'myImage', accept: 'image/*', onChange: this.handleImage, value: this.state.image }),
 	        React.createElement('input', { type: 'submit', value: 'Post' })
 	      )
 	    );
@@ -21297,7 +21307,7 @@
 	'use strict';
 	
 	var React = __webpack_require__(1);
-	var Individual = __webpack_require__(180);
+	var Individual = __webpack_require__(176);
 	
 	var ParticipantBox = React.createClass({
 	  displayName: 'ParticipantBox',
@@ -21306,16 +21316,17 @@
 	  render: function render() {
 	
 	    var list = this.props.participants.map(function (partInfo) {
-	      var logo = '';
 	      if (partInfo.type === 'Employer') {
-	        logo = "//logo.clearbit.com/" + partInfo.name.toLowerCase().replace(/ /g, '') + ".com?size=40";
-	      } else if (partInfo.type === 'Student') {
-	        logo = 'picture';
+	        var logo = "//logo.clearbit.com/" + partInfo.name.toLowerCase().replace(/ /g, '') + ".com?size=40";
+	        var picture = React.createElement('img', { className: 'profiles', src: logo, width: '80', height: '80' });
+	      } else {
+	        logo = "/images/" + partInfo.name + ".jpg";
+	        picture = React.createElement('img', { className: 'profiles', src: logo, width: '80', height: '120' });
 	      }return React.createElement(
 	        'div',
-	        { id: 'participant', key: partInfo._id },
+	        { id: 'participant', key: partInfo._id, draggable: 'true' },
 	        React.createElement(Individual, { participant: partInfo, pageState: this.props.pageState }),
-	        React.createElement('img', { src: logo })
+	        picture
 	      );
 	    });
 	
@@ -21330,11 +21341,7 @@
 	module.exports = ParticipantBox;
 
 /***/ },
-/* 176 */,
-/* 177 */,
-/* 178 */,
-/* 179 */,
-/* 180 */
+/* 176 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
