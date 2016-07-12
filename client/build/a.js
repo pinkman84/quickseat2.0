@@ -21093,9 +21093,9 @@
 	'use strict';
 	
 	var React = __webpack_require__(1);
-	var ParticipantBox = __webpack_require__(173);
-	var Participant = __webpack_require__(174);
-	var CreateForm = __webpack_require__(175);
+	var Participant = __webpack_require__(173);
+	var CreateForm = __webpack_require__(174);
+	var ParticipantBox = __webpack_require__(175);
 	
 	var CreateBox = React.createClass({
 	  displayName: 'CreateBox',
@@ -21162,48 +21162,6 @@
 
 /***/ },
 /* 173 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var React = __webpack_require__(1);
-	// const Participant = require('./participant.jsx')
-	
-	var ParticipantBox = React.createClass({
-	  displayName: 'ParticipantBox',
-	
-	
-	  render: function render() {
-	
-	    var list = this.props.participants.map(function (partInfo) {
-	      var logo = "//logo.clearbit.com/" + partInfo.name.toLowerCase().replace(/ /g, '') + ".com?size=40";
-	      return React.createElement(
-	        'div',
-	        { id: 'participant', key: partInfo.number },
-	        React.createElement(
-	          'h4',
-	          null,
-	          ' ',
-	          partInfo.name,
-	          ' '
-	        ),
-	        React.createElement('img', { src: logo })
-	      );
-	    });
-	
-	    return React.createElement(
-	      'div',
-	      null,
-	      list
-	    );
-	  }
-	
-	});
-	
-	module.exports = ParticipantBox;
-
-/***/ },
-/* 174 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -21234,7 +21192,7 @@
 	module.exports = Participant;
 
 /***/ },
-/* 175 */
+/* 174 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21307,6 +21265,51 @@
 	});
 	
 	module.exports = CreateForm;
+
+/***/ },
+/* 175 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(1);
+	// const Participant = require('./participant.jsx')
+	
+	var ParticipantBox = React.createClass({
+	  displayName: 'ParticipantBox',
+	
+	
+	  render: function render() {
+	
+	    var list = this.props.participants.map(function (partInfo) {
+	      if (partInfo.type === 'employer') {
+	        var logo = "//logo.clearbit.com/" + partInfo.name.toLowerCase().replace(/ /g, '') + ".com?size=40";
+	      }
+	
+	      return React.createElement(
+	        'div',
+	        { id: 'participant', key: partInfo.id },
+	        React.createElement(
+	          'h4',
+	          null,
+	          ' ',
+	          partInfo.name,
+	          ' '
+	        ),
+	        React.createElement('img', { src: logo })
+	      );
+	    });
+	
+	    return React.createElement(
+	      'div',
+	      null,
+	      list
+	    );
+	  }
+	
+	});
+	
+	module.exports = ParticipantBox;
 
 /***/ }
 /******/ ]);

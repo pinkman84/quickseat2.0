@@ -1,7 +1,7 @@
 const React = require('react');
-const ParticipantBox = require('./ParticipantBox.jsx');
 const Participant = require('./Participant.js')
 const CreateForm = require('./CreateForm.jsx')
+const ParticipantBox = require('./ParticipantBox.jsx')
 
 let CreateBox = React.createClass({
 
