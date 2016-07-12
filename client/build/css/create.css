@@ -36,15 +36,19 @@ h1 {
 }
 
 
-#student-list{
+.students{
   display: inline-block;
   /*  float: left;*/
 
 }
 
-#employer-list{
+.employers{
   display: inline-block;
   /*float: right;*/
+}
+
+.profiles{
+  border-radius: 50%;
 }
 section{
   /*float: right;*/
@@ -110,3 +114,5 @@ input[type=text] {
 #std-img{
   visibility: hidden ;
 }
+
+

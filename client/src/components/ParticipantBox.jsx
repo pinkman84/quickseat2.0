@@ -8,15 +8,17 @@ var ParticipantBox = React.createClass({
     let list = this.props.participants.map(function(partInfo){
       if(partInfo.type === 'Employer'){
         var logo = "//logo.clearbit.com/" + partInfo.name.toLowerCase().replace(/ /g,'') +".com?size=40"
+         var picture = <img className="profiles" src={logo} width="80" height="80"/>
       }
       else{
         logo = "/images/" + partInfo.name + ".jpg"
+        picture = <img className="profiles" src={logo} width="80" height="120"/>
       }
 
       return(
         <div id="participant" key={ partInfo._id } draggable="true">
           <h4> {partInfo.name} </h4>
-          <img src={logo} width="80" height="80"/>
+          {picture}
         </div>
         )
     })

@@ -20992,8 +20992,10 @@
 	    var list = this.props.participants.map(function (partInfo) {
 	      if (partInfo.type === 'Employer') {
 	        var logo = "//logo.clearbit.com/" + partInfo.name.toLowerCase().replace(/ /g, '') + ".com?size=40";
+	        var picture = React.createElement('img', { className: 'profiles', src: logo, width: '80', height: '80' });
 	      } else {
 	        logo = "/images/" + partInfo.name + ".jpg";
+	        picture = React.createElement('img', { className: 'profiles', src: logo, width: '80', height: '120' });
 	      }
 	
 	      return React.createElement(
@@ -21006,7 +21008,7 @@
 	          partInfo.name,
 	          ' '
 	        ),
-	        React.createElement('img', { src: logo, width: '80', height: '80' })
+	        picture
 	      );
 	    });
 	
