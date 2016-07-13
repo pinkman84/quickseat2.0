@@ -21001,7 +21001,7 @@
 	        var picture = React.createElement('img', { className: 'profiles', src: logo, width: '80', height: '80' });
 	      } else if (partInfo.type === 'Student') {
 	        logo = "/images/" + partInfo.name + ".jpg";
-	        picture = React.createElement('img', { className: 'profiles', src: logo, width: '80', height: '120' });
+	        picture = React.createElement('img', { className: 'profiles', src: logo, width: '60', height: '80' });
 	      }
 	
 	      return React.createElement(
@@ -21012,7 +21012,7 @@
 	    }.bind(this));
 	    return React.createElement(
 	      'div',
-	      null,
+	      { id: 'pbox' },
 	      list
 	    );
 	  }
@@ -21131,7 +21131,7 @@
 	
 	    return React.createElement(
 	      'div',
-	      null,
+	      { id: 'ibox' },
 	      eventFormat
 	    );
 	    console.log(this.props.pageState);
@@ -21227,7 +21227,25 @@
 	
 	    return React.createElement(
 	      'div',
-	      null,
+	      { id: 'view-box' },
+	      React.createElement(
+	        'form',
+	        { method: 'get', action: './create.html' },
+	        React.createElement(
+	          'button',
+	          { className: 'button', type: 'submit' },
+	          'Create Event'
+	        )
+	      ),
+	      React.createElement(
+	        'form',
+	        { method: 'get', action: './index.html' },
+	        React.createElement(
+	          'button',
+	          { className: 'button', type: 'submit' },
+	          'Home Page'
+	        )
+	      ),
 	      React.createElement(
 	        'div',
 	        { className: 'employers' },
@@ -21270,7 +21288,7 @@
 	
 	    return React.createElement(
 	      'div',
-	      null,
+	      { id: 'clock' },
 	      React.createElement(
 	        'h3',
 	        { id: 'time' },
@@ -21278,12 +21296,12 @@
 	      ),
 	      React.createElement(
 	        'button',
-	        { id: 'start', onClick: this.props.start },
+	        { className: 'button', id: 'start', onClick: this.props.start },
 	        'Start'
 	      ),
 	      React.createElement(
 	        'button',
-	        { id: 'clear', onClick: this.props.reset },
+	        { className: 'button', id: 'clear', onClick: this.props.reset },
 	        'Reset'
 	      )
 	    );

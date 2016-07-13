@@ -67,7 +67,7 @@ const CreateIndividual = React.createClass({
 
     return (
 
-      <div>
+      <div id="ibox">
       {eventFormat}
       </div>
     )

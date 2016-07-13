@@ -54,7 +54,13 @@ let CreateBox = React.createClass({
   render: function() {
 
     return (
-      <div>
+      <div id="create-box">
+       <form method="get" action="./view.html">
+           <button className="button" type="submit">View Event</button>
+      </form>
+       <form method="get" action="./index.html">
+           <button className="button" type="submit">Home Page</button>
+      </form>
       <CreateForm handlePartySubmit = {this.handlePartySubmit}/>
       <div className="employers">
         <ParticipantBox

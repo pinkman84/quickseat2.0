@@ -21034,7 +21034,25 @@
 	
 	    return React.createElement(
 	      'div',
-	      null,
+	      { id: 'create-box' },
+	      React.createElement(
+	        'form',
+	        { method: 'get', action: './view.html' },
+	        React.createElement(
+	          'button',
+	          { className: 'button', type: 'submit' },
+	          'View Event'
+	        )
+	      ),
+	      React.createElement(
+	        'form',
+	        { method: 'get', action: './index.html' },
+	        React.createElement(
+	          'button',
+	          { className: 'button', type: 'submit' },
+	          'Home Page'
+	        )
+	      ),
 	      React.createElement(CreateForm, { handlePartySubmit: this.handlePartySubmit }),
 	      React.createElement(
 	        'div',
@@ -21147,7 +21165,7 @@
 	  render: function render() {
 	    return React.createElement(
 	      'div',
-	      null,
+	      { id: 'create-form' },
 	      React.createElement(
 	        'form',
 	        { className: 'partyForm', onSubmit: this.handleSubmit },
@@ -21175,7 +21193,7 @@
 	          )
 	        ),
 	        React.createElement('input', { ref: 'image', id: 'std-img', type: 'file', name: 'myImage', accept: 'image/*', onChange: this.handleImage, value: this.state.image }),
-	        React.createElement('input', { type: 'submit', value: 'Post' })
+	        React.createElement('input', { id: 'post-btn', className: 'button', type: 'submit', value: 'Post' })
 	      )
 	    );
 	  }
@@ -21210,7 +21228,7 @@
 	        var picture = React.createElement('img', { className: 'profiles', src: logo, width: '80', height: '80' });
 	      } else if (partInfo.type === 'Student') {
 	        logo = "/images/" + partInfo.name + ".jpg";
-	        picture = React.createElement('img', { className: 'profiles', src: logo, width: '80', height: '120' });
+	        picture = React.createElement('img', { className: 'profiles', src: logo, width: '60', height: '80' });
 	      }
 	
 	      return React.createElement(
@@ -21221,7 +21239,7 @@
 	    }.bind(this));
 	    return React.createElement(
 	      'div',
-	      null,
+	      { id: 'pbox' },
 	      list
 	    );
 	  }
@@ -21340,7 +21358,7 @@
 	
 	    return React.createElement(
 	      'div',
-	      null,
+	      { id: 'ibox' },
 	      eventFormat
 	    );
 	    console.log(this.props.pageState);

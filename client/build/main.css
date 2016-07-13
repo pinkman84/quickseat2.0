@@ -1,0 +1,126 @@
+body{
+  /*background: #e6fff7;*/
+  background-image: url(../images/background1.png);
+  background-size: 100%;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+
+.button {
+
+  background: linear-gradient(#006644, #003322);
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline;
+  font-size: 16px;
+  border-radius: 8%;
+  padding: 20px 200px;
+}
+
+.button:hover {
+  background: linear-gradient(#004d1a, #006644);
+  border:#003322;
+  margin: 2px solid #003322;
+}
+
+#post-btn{
+ background: linear-gradient(#006644, #003322);
+ border: none;
+ color: white;
+ padding: 15px 32px;
+ text-align: center;
+ text-decoration: none;
+ display: inline;
+ font-size: 16px;
+ border-radius: 8%;
+ padding: 2px 15px;
+}
+
+#pbox {
+  background-color: #fff;
+  border-radius: 5%;
+  border: solid black 4px;
+  width: 100px;
+  text-align: center;
+}
+
+.individual button{
+  display: inline-block;
+  right: 5%;
+  top: 5%;
+}
+.employers{
+  float:right;
+}
+.students{
+  float: right;
+}
+
+#clock {
+  font-size: 3em;
+  font-family: 'Russo One', sans-serif;
+  background-color: white;
+  border: 3px solid black;
+  border-radius: 15px;
+  width: 200px;
+  text-align: center;
+  position: relative;
+  margin-top: 25%;
+}
+
+#time {
+  height: 0;
+  margin-top: 0;
+}
+
+canvas {
+  border: 5px solid #006644;
+  background-image: url(../images/codeclan_floorplan1.jpg);
+  background-repeat: no-repeat;
+  background-size: 110%;
+  display: inline-block;
+  position: absolute;
+  z-index: 2;
+  /*width: 50%;*/
+  padding-top: 50px;
+}
+
+#start{
+  background: linear-gradient(#33cc33, #602020);
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline;
+  font-size: 16px;
+  border-radius: 10%;
+}
+
+#clear{
+  background: linear-gradient(#cc6666, #602020);
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline;
+  font-size: 16px;
+  border-radius: 10%;
+
+}
+
+img{
+  border-radius: 10%;
+}
+
+footer {
+   position:absolute;
+   bottom:0;
+   width:100%;
+   height:60px;
+   background:#003323;
+}

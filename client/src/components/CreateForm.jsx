@@ -46,7 +46,7 @@ let CreateForm = React.createClass( {
 
   render: function() {
     return (
-			<div>
+			<div id="create-form">
   			<form className="partyForm" onSubmit={this.handleSubmit}>
   				<input
             type="text" placeholder="Name"
@@ -58,7 +58,7 @@ let CreateForm = React.createClass( {
             <option>Student</option>
           </select>
           <input ref="image" id='std-img' type="file" name="myImage" accept="image/*" onChange={this.handleImage} value={this.state.image}/>
-          <input type="submit" value="Post" />
+          <input id="post-btn" className="button" type="submit" value="Post" />
   			</form>
 
 			</div>

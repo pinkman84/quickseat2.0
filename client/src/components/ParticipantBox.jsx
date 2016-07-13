@@ -14,7 +14,7 @@ var ParticipantBox = React.createClass({
       } 
       else if (partInfo.type === 'Student') {
         logo = "/images/" + partInfo.name + ".jpg"
-        picture = <img className="profiles" src={logo} width="80" height="120"/>
+        picture = <img className="profiles" src={logo} width="60" height="80"/>
       } 
 
       return (
@@ -24,7 +24,7 @@ var ParticipantBox = React.createClass({
         )
     }.bind(this))
     return (
-      <div>
+      <div id="pbox">
         {list}
       </div>
       );

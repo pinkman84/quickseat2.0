@@ -75,7 +75,13 @@ const ViewBox = React.createClass({
   render: function() {
 
     return (
-      <div>
+      <div id="view-box">
+       <form method="get" action="./create.html">
+           <button className="button" type="submit">Create Event</button>
+      </form>
+       <form method="get" action="./index.html">
+           <button className="button" type="submit">Home Page</button>
+      </form>
 
       <div className="employers">
       <ParticipantBox
