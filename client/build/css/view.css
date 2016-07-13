@@ -131,7 +131,7 @@ button {
       float: right;
     }
 
-    .time {
+    #time {
       font-size: 3em;
       font-family: 'Russo One', sans-serif;
       background-color: white;

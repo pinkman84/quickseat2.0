@@ -21002,11 +21002,11 @@
 	    request.open("GET", url);
 	    request.onload = function () {
 	      var list = JSON.parse(request.responseText);
-	      console.log('request', request.responseText);
+	      // console.log('request', request.responseText);
 	      this.setState({
 	        participants: list
 	      });
-	      console.log('state', this.state.participants);
+	      // console.log('state', this.state.participants);
 	    }.bind(this);
 	    request.send();
 	  },
@@ -21041,7 +21041,7 @@
 	        { className: 'employers' },
 	        React.createElement(ParticipantBox, {
 	          participants: this.filterParticipants('Employer'),
-	          pageState: 1
+	          pageState: 2
 	        })
 	      ),
 	      React.createElement(
@@ -21049,7 +21049,7 @@
 	        { className: 'students' },
 	        React.createElement(ParticipantBox, {
 	          participants: this.filterParticipants('Student'),
-	          pageState: 1
+	          pageState: 2
 	        })
 	      )
 	    );
@@ -21202,17 +21202,17 @@
 	      if (partInfo.type === 'Employer') {
 	        var logo = "//logo.clearbit.com/" + partInfo.name.toLowerCase().replace(/ /g, '') + ".com?size=40";
 	        var picture = React.createElement('img', { className: 'profiles', src: logo, width: '80', height: '80' });
-	      } else {
+	      } else if (partInfo.type === 'Student') {
 	        logo = "/images/" + partInfo.name + ".jpg";
 	        picture = React.createElement('img', { className: 'profiles', src: logo, width: '80', height: '120' });
-	      }return React.createElement(
+	      }
+	      return React.createElement(
 	        'div',
 	        { id: 'participant', key: partInfo._id, draggable: 'true' },
-	        React.createElement(Individual, { participant: partInfo, pageState: this.props.pageState }),
-	        picture
+	        React.createElement(Individual, { participant: partInfo, pageState: this.props.pageState, picture: picture })
 	      );
-	    });
-	
+	    }.bind(this));
+	    console.log(list);
 	    return React.createElement(
 	      'div',
 	      null,
@@ -21239,7 +21239,7 @@
 	  displayName: 'CreateIndividual',
 	
 	  getInitialState: function getInitialState() {
-	    return { available: true, eventArray: [] };
+	    return { available: true, inEvent: false };
 	  },
 	
 	  handleAdd: function handleAdd() {
@@ -21254,39 +21254,54 @@
 	
 	    var name = this.props.participant.name;
 	
-	    var createView = function createView() {
+	    var createView = function () {
 	      // do create page logic
+	      console.log('hey can you see this', name);
 	      var aButton = React.createElement(
 	        'button',
 	        { id: 'add' },
 	        'Add Participant'
 	      );
-	
 	      if (this.state.available === false) {
-	        eventArray.push(this.props.participant);
-	      } else {}
+	        aButton = React.createElement(
+	          'button',
+	          { id: 'close', onClick: this.addEvent },
+	          'Remove Participant'
+	        );
+	      } else {
+	        aButton = React.createElement(
+	          'button',
+	          { id: 'add', onClick: this.handleClose },
+	          'Add Participant'
+	        );
+	      }
 	      return React.createElement(
 	        'div',
 	        { className: 'individual' },
 	        aButton,
+	        this.props.picture,
 	        React.createElement(
 	          'h4',
 	          null,
 	          name
 	        )
 	      );
-	    };
+	    }.bind(this);
 	
-	    var eventView = function eventView() {
+	    var eventView = function () {
 	      // do view page logic
+	      console.log('hey can you see me?', name);
 	      var aButton = React.createElement(
 	        'button',
 	        { id: 'close', onClick: this.handleClose },
 	        'x'
 	      );
+	      var thisPicture = this.props.picture;
 	
 	      if (this.state.available === false) {
 	        name = "Unavailable";
+	        console.log(thisPicture);
+	        thisPicture = React.createElement('img', { className: 'profiles', src: '//logo.clearbit.com/codeclan.com?size=40', width: '80', height: '120' });
 	        aButton = React.createElement(
 	          'button',
 	          { id: 'add', onClick: this.handleAdd },
@@ -21294,6 +21309,7 @@
 	        );
 	      } else {
 	        name = this.props.participant.name;
+	        thisPicture = this.props.picture;
 	        aButton = React.createElement(
 	          'button',
 	          { id: 'close', onClick: this.handleClose },
@@ -21303,23 +21319,29 @@
 	      return React.createElement(
 	        'div',
 	        { className: 'individual' },
-	        aButton,
+	        thisPicture,
 	        React.createElement(
 	          'h4',
 	          null,
 	          name
-	        )
+	        ),
+	        aButton
 	      );
-	    };
+	    }.bind(this);
 	
 	    var eventFormat = React.createElement('div', null);
 	    if (this.props.pageState === 1) {
 	      eventFormat = eventView();
-	    } else {
+	    } else if (this.props.pageState === 2) {
 	      eventFormat = createView();
 	    }
 	
-	    return { eventFormat: eventFormat };
+	    return React.createElement(
+	      'div',
+	      null,
+	      eventFormat
+	    );
+	    console.log(this.props.pageState);
 	  }
 	
 	});

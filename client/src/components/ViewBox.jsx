@@ -21,10 +21,10 @@ const ViewBox = React.createClass({
     let url = this.props.url
     let request = new XMLHttpRequest();
     request.open("GET", url)
-    console.log(request);
+    // console.log(request);
     request.onload = function(){
       let list = JSON.parse(request.responseText);
-      console.log('view request', request.responseText);
+      // console.log('view request', request.responseText);
       this.setState({
         participants: list
       });
@@ -62,19 +62,17 @@ const ViewBox = React.createClass({
 
     return (
       <div>
-      <form method="get" action="./create.html">
-        <button type="submit">Create Event</button>
-      </form>
+
       <div className="employers">
         <ParticipantBox
           participants={ this.filterParticipants('Employer') }
-          pageState={ 2 }
+          pageState={ 1 }
         />
       </div>
       <div className="students">
         <ParticipantBox
-          participants={ this.filterParticipants('student')}
-          pageState={ 2 }
+          participants={ this.filterParticipants('Student')}
+          pageState={ 1 }
         />
       </div>
       <ClockBox className="clock" time={this.state.time} start={this.displayTime} reset={this.reset}/>

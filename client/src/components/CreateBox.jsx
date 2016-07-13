@@ -23,11 +23,11 @@ let CreateBox = React.createClass({
     request.open("GET", url)
     request.onload = function(){
       let list = JSON.parse(request.responseText);
-      console.log('request', request.responseText);
+      // console.log('request', request.responseText);
       this.setState({
         participants: list
       });
-      console.log('state', this.state.participants);
+      // console.log('state', this.state.participants);
     }.bind(this)
     request.send();
   },
@@ -59,13 +59,13 @@ let CreateBox = React.createClass({
       <div className="employers">
         <ParticipantBox
           participants={ this.filterParticipants('Employer') }
-          pageState={ 1 }
+          pageState={ 2 }
         />
       </div>
       <div className="students">
         <ParticipantBox
           participants = {this.filterParticipants('Student')}
-          pageState={ 1 }
+          pageState={ 2 }
         />
       </div>
       </div>
