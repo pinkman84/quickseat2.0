@@ -20988,7 +20988,13 @@
 	
 	
 	  render: function render() {
-	
+	    if (!this.props.participants) {
+	      return React.createElement(
+	        'h4',
+	        null,
+	        'fetching data'
+	      );
+	    };
 	    var list = this.props.participants.map(function (partInfo) {
 	      if (partInfo.type === 'Employer') {
 	        var logo = "//logo.clearbit.com/" + partInfo.name.toLowerCase().replace(/ /g, '') + ".com?size=40";
@@ -20997,13 +21003,13 @@
 	        logo = "/images/" + partInfo.name + ".jpg";
 	        picture = React.createElement('img', { className: 'profiles', src: logo, width: '80', height: '120' });
 	      }
+	
 	      return React.createElement(
 	        'div',
 	        { id: 'participant', key: partInfo._id, draggable: 'true' },
-	        React.createElement(Individual, { participant: partInfo, pageState: this.props.pageState, picture: picture })
+	        React.createElement(Individual, { participant: partInfo, pageState: this.props.pageState, value: partInfo.type, picture: picture })
 	      );
 	    }.bind(this));
-	    console.log(list);
 	    return React.createElement(
 	      'div',
 	      null,
@@ -21088,7 +21094,7 @@
 	      if (this.state.available === false) {
 	        name = "Unavailable";
 	        console.log(thisPicture);
-	        thisPicture = React.createElement('img', { className: 'profiles', src: '//logo.clearbit.com/codeclan.com?size=40', width: '80', height: '120' });
+	        thisPicture = React.createElement('img', { className: 'profiles', src: '//logo.clearbit.com/codeclan.com?size=40', width: '40', height: '40' });
 	        aButton = React.createElement(
 	          'button',
 	          { id: 'add', onClick: this.handleAdd },
@@ -21152,12 +21158,13 @@
 	  getInitialState: function getInitialState() {
 	    return {
 	      participants: [],
-	      time: 600
+	      time: 600,
+	      employers: [],
+	      test: 328
 	    };
 	  },
 	
 	  componentDidMount: function componentDidMount() {
-	    console.log("mounted");
 	    this.fetchLists();
 	  },
 	
@@ -21173,6 +21180,7 @@
 	      this.setState({
 	        participants: list
 	      });
+	      this.setEmployers(this.filterParticipants('Employer'));
 	    }.bind(this);
 	    request.send();
 	  },
@@ -21181,6 +21189,7 @@
 	    var list = this.state.participants.filter(function (participant) {
 	      return participant.type === type;
 	    });
+	    console.log('list', list);
 	    return list;
 	  },
 	
@@ -21189,7 +21198,6 @@
 	  },
 	
 	  start: function start() {
-	
 	    var newTime = this.state.time;
 	    if (newTime) {
 	      newTime--;
@@ -21200,6 +21208,19 @@
 	  reset: function reset() {
 	    console.log('reset button');
 	    this.setState({ time: 600 });
+	    this.shuffle(this.state.employers);
+	  },
+	
+	  setEmployers: function setEmployers(array) {
+	    console.log(array, 'empss');
+	    this.setState({ employers: array });
+	  },
+	
+	  shuffle: function shuffle(array) {
+	    var newArray = array;
+	    var lastEmployer = array.pop();
+	    newArray.unshift(lastEmployer);
+	    this.setState({ employers: newArray });
 	  },
 	
 	  render: function render() {
@@ -21211,8 +21232,9 @@
 	        'div',
 	        { className: 'employers' },
 	        React.createElement(ParticipantBox, {
-	          participants: this.filterParticipants('Employer'),
+	          participants: this.state.employers,
 	          pageState: 1
+	
 	        })
 	      ),
 	      React.createElement(
