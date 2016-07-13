@@ -21190,7 +21190,7 @@
 	'use strict';
 	
 	var React = __webpack_require__(1);
-	var Individual = __webpack_require__(178);
+	var Individual = __webpack_require__(174);
 	
 	var ParticipantBox = React.createClass({
 	  displayName: 'ParticipantBox',
@@ -21224,11 +21224,7 @@
 	module.exports = ParticipantBox;
 
 /***/ },
-/* 174 */,
-/* 175 */,
-/* 176 */,
-/* 177 */,
-/* 178 */
+/* 174 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';

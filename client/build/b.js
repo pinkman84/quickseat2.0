@@ -48,8 +48,8 @@
 	
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(33);
-	var ViewBox = __webpack_require__(174);
-	var Canvas = __webpack_require__(177);
+	var ViewBox = __webpack_require__(175);
+	var Canvas = __webpack_require__(178);
 	
 	window.onload = function () {
 	  ReactDOM.render(React.createElement(ViewBox, { url: '/lists' }), document.getElementById('app_view'));
@@ -20981,7 +20981,7 @@
 	'use strict';
 	
 	var React = __webpack_require__(1);
-	var Individual = __webpack_require__(178);
+	var Individual = __webpack_require__(174);
 	
 	var ParticipantBox = React.createClass({
 	  displayName: 'ParticipantBox',
@@ -21021,8 +21021,129 @@
 	'use strict';
 	
 	var React = __webpack_require__(1);
+	
+	var CreateIndividual = React.createClass({
+	  displayName: 'CreateIndividual',
+	
+	  getInitialState: function getInitialState() {
+	    return { available: true, inEvent: false };
+	  },
+	
+	  handleAdd: function handleAdd() {
+	    this.setState({ available: true });
+	  },
+	
+	  handleClose: function handleClose() {
+	    this.setState({ available: false });
+	  },
+	
+	  render: function render() {
+	
+	    var name = this.props.participant.name;
+	
+	    var createView = function () {
+	      // do create page logic
+	      console.log('hey can you see this', name);
+	      var aButton = React.createElement(
+	        'button',
+	        { id: 'add' },
+	        'Add Participant'
+	      );
+	      if (this.state.available === false) {
+	        aButton = React.createElement(
+	          'button',
+	          { id: 'close', onClick: this.addEvent },
+	          'Remove Participant'
+	        );
+	      } else {
+	        aButton = React.createElement(
+	          'button',
+	          { id: 'add', onClick: this.handleClose },
+	          'Add Participant'
+	        );
+	      }
+	      return React.createElement(
+	        'div',
+	        { className: 'individual' },
+	        aButton,
+	        this.props.picture,
+	        React.createElement(
+	          'h4',
+	          null,
+	          name
+	        )
+	      );
+	    }.bind(this);
+	
+	    var eventView = function () {
+	      // do view page logic
+	      console.log('hey can you see me?', name);
+	      var aButton = React.createElement(
+	        'button',
+	        { id: 'close', onClick: this.handleClose },
+	        'x'
+	      );
+	      var thisPicture = this.props.picture;
+	
+	      if (this.state.available === false) {
+	        name = "Unavailable";
+	        console.log(thisPicture);
+	        thisPicture = React.createElement('img', { className: 'profiles', src: '//logo.clearbit.com/codeclan.com?size=40', width: '80', height: '120' });
+	        aButton = React.createElement(
+	          'button',
+	          { id: 'add', onClick: this.handleAdd },
+	          '+'
+	        );
+	      } else {
+	        name = this.props.participant.name;
+	        thisPicture = this.props.picture;
+	        aButton = React.createElement(
+	          'button',
+	          { id: 'close', onClick: this.handleClose },
+	          'x'
+	        );
+	      }
+	      return React.createElement(
+	        'div',
+	        { className: 'individual' },
+	        thisPicture,
+	        React.createElement(
+	          'h4',
+	          null,
+	          name
+	        ),
+	        aButton
+	      );
+	    }.bind(this);
+	
+	    var eventFormat = React.createElement('div', null);
+	    if (this.props.pageState === 1) {
+	      eventFormat = eventView();
+	    } else if (this.props.pageState === 2) {
+	      eventFormat = createView();
+	    }
+	
+	    return React.createElement(
+	      'div',
+	      null,
+	      eventFormat
+	    );
+	    console.log(this.props.pageState);
+	  }
+	
+	});
+	
+	module.exports = CreateIndividual;
+
+/***/ },
+/* 175 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(1);
 	var ParticipantBox = __webpack_require__(173);
-	var ClockBox = __webpack_require__(175);
+	var ClockBox = __webpack_require__(176);
 	
 	var ViewBox = React.createClass({
 	  displayName: 'ViewBox',
@@ -21111,13 +21232,13 @@
 	module.exports = ViewBox;
 
 /***/ },
-/* 175 */
+/* 176 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	var React = __webpack_require__(1);
-	var numeral = __webpack_require__(176);
+	var numeral = __webpack_require__(177);
 	
 	var ClockBox = React.createClass({
 	  displayName: 'ClockBox',
@@ -21151,7 +21272,7 @@
 	module.exports = ClockBox;
 
 /***/ },
-/* 176 */
+/* 177 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -21836,7 +21957,7 @@
 
 
 /***/ },
-/* 177 */
+/* 178 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -22007,127 +22128,6 @@
 	};
 	
 	module.exports = CanvasState;
-
-/***/ },
-/* 178 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var React = __webpack_require__(1);
-	
-	var CreateIndividual = React.createClass({
-	  displayName: 'CreateIndividual',
-	
-	  getInitialState: function getInitialState() {
-	    return { available: true, inEvent: false };
-	  },
-	
-	  handleAdd: function handleAdd() {
-	    this.setState({ available: true });
-	  },
-	
-	  handleClose: function handleClose() {
-	    this.setState({ available: false });
-	  },
-	
-	  render: function render() {
-	
-	    var name = this.props.participant.name;
-	
-	    var createView = function () {
-	      // do create page logic
-	      console.log('hey can you see this', name);
-	      var aButton = React.createElement(
-	        'button',
-	        { id: 'add' },
-	        'Add Participant'
-	      );
-	      if (this.state.available === false) {
-	        aButton = React.createElement(
-	          'button',
-	          { id: 'close', onClick: this.addEvent },
-	          'Remove Participant'
-	        );
-	      } else {
-	        aButton = React.createElement(
-	          'button',
-	          { id: 'add', onClick: this.handleClose },
-	          'Add Participant'
-	        );
-	      }
-	      return React.createElement(
-	        'div',
-	        { className: 'individual' },
-	        aButton,
-	        this.props.picture,
-	        React.createElement(
-	          'h4',
-	          null,
-	          name
-	        )
-	      );
-	    }.bind(this);
-	
-	    var eventView = function () {
-	      // do view page logic
-	      console.log('hey can you see me?', name);
-	      var aButton = React.createElement(
-	        'button',
-	        { id: 'close', onClick: this.handleClose },
-	        'x'
-	      );
-	      var thisPicture = this.props.picture;
-	
-	      if (this.state.available === false) {
-	        name = "Unavailable";
-	        console.log(thisPicture);
-	        thisPicture = React.createElement('img', { className: 'profiles', src: '//logo.clearbit.com/codeclan.com?size=40', width: '80', height: '120' });
-	        aButton = React.createElement(
-	          'button',
-	          { id: 'add', onClick: this.handleAdd },
-	          '+'
-	        );
-	      } else {
-	        name = this.props.participant.name;
-	        thisPicture = this.props.picture;
-	        aButton = React.createElement(
-	          'button',
-	          { id: 'close', onClick: this.handleClose },
-	          'x'
-	        );
-	      }
-	      return React.createElement(
-	        'div',
-	        { className: 'individual' },
-	        thisPicture,
-	        React.createElement(
-	          'h4',
-	          null,
-	          name
-	        ),
-	        aButton
-	      );
-	    }.bind(this);
-	
-	    var eventFormat = React.createElement('div', null);
-	    if (this.props.pageState === 1) {
-	      eventFormat = eventView();
-	    } else if (this.props.pageState === 2) {
-	      eventFormat = createView();
-	    }
-	
-	    return React.createElement(
-	      'div',
-	      null,
-	      eventFormat
-	    );
-	    console.log(this.props.pageState);
-	  }
-	
-	});
-	
-	module.exports = CreateIndividual;
 
 /***/ }
 /******/ ]);
