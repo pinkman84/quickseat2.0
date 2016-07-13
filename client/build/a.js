@@ -21190,14 +21190,20 @@
 	'use strict';
 	
 	var React = __webpack_require__(1);
-	var Individual = __webpack_require__(178);
+	var Individual = __webpack_require__(174);
 	
 	var ParticipantBox = React.createClass({
 	  displayName: 'ParticipantBox',
 	
 	
 	  render: function render() {
-	
+	    if (!this.props.participants) {
+	      return React.createElement(
+	        'h4',
+	        null,
+	        'fetching data'
+	      );
+	    };
 	    var list = this.props.participants.map(function (partInfo) {
 	      if (partInfo.type === 'Employer') {
 	        var logo = "//logo.clearbit.com/" + partInfo.name.toLowerCase().replace(/ /g, '') + ".com?size=40";
@@ -21206,13 +21212,13 @@
 	        logo = "/images/" + partInfo.name + ".jpg";
 	        picture = React.createElement('img', { className: 'profiles', src: logo, width: '80', height: '120' });
 	      }
+	
 	      return React.createElement(
 	        'div',
 	        { id: 'participant', key: partInfo._id, draggable: 'true' },
-	        React.createElement(Individual, { participant: partInfo, pageState: this.props.pageState, picture: picture })
+	        React.createElement(Individual, { participant: partInfo, pageState: this.props.pageState, value: partInfo.type, picture: picture })
 	      );
 	    }.bind(this));
-	    console.log(list);
 	    return React.createElement(
 	      'div',
 	      null,
@@ -21224,11 +21230,7 @@
 	module.exports = ParticipantBox;
 
 /***/ },
-/* 174 */,
-/* 175 */,
-/* 176 */,
-/* 177 */,
-/* 178 */
+/* 174 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21301,7 +21303,7 @@
 	      if (this.state.available === false) {
 	        name = "Unavailable";
 	        console.log(thisPicture);
-	        thisPicture = React.createElement('img', { className: 'profiles', src: '//logo.clearbit.com/codeclan.com?size=40', width: '80', height: '120' });
+	        thisPicture = React.createElement('img', { className: 'profiles', src: '//logo.clearbit.com/codeclan.com?size=40', width: '40', height: '40' });
 	        aButton = React.createElement(
 	          'button',
 	          { id: 'add', onClick: this.handleAdd },

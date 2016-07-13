@@ -7,12 +7,13 @@ const ViewBox = React.createClass({
   getInitialState: function() {
     return {
       participants: [],
-      time: 600
+      time: 600,
+      employers: [],
+      test: 328
     };
   },
 
   componentDidMount: function() {
-    console.log("mounted")
     this.fetchLists();
   },
 
@@ -28,23 +29,24 @@ const ViewBox = React.createClass({
       this.setState({
         participants: list
       });
+      this.setEmployers( this.filterParticipants( 'Employer' ) );
     }.bind(this)
     request.send();
   },
 
   filterParticipants: function(type){
     let list = this.state.participants.filter(function(participant){
-      return (participant.type === type)
+      return participant.type === type
     })
+    console.log( 'list', list )
     return list
   },
 
   displayTime: function(){
-      setInterval(this.start, 200)
+    setInterval(this.start, 200)
   },
 
   start: function(){
-
     let newTime = this.state.time
     if(newTime){
       newTime --
@@ -55,8 +57,20 @@ const ViewBox = React.createClass({
   reset: function(){
     console.log('reset button');
     this.setState({time: 600})
-      },
+    this.shuffle(this.state.employers)
+  },
 
+  setEmployers: function(array){
+    console.log( array, 'empss' )
+    this.setState({ employers: array});
+  },
+
+  shuffle: function(array){
+    let newArray = array;
+    let lastEmployer = array.pop();
+    newArray.unshift(lastEmployer);
+    this.setState({employers: newArray})
+  },
 
   render: function() {
 
@@ -64,20 +78,21 @@ const ViewBox = React.createClass({
       <div>
 
       <div className="employers">
-        <ParticipantBox
-          participants={ this.filterParticipants('Employer') }
-          pageState={ 1 }
-        />
+      <ParticipantBox
+      participants={ this.state.employers }
+      pageState={ 1 }
+
+      />
       </div>
       <div className="students">
-        <ParticipantBox
-          participants={ this.filterParticipants('Student')}
-          pageState={ 1 }
-        />
+      <ParticipantBox
+      participants={ this.filterParticipants('Student')}
+      pageState={ 1 }
+      />
       </div>
       <ClockBox className="clock" time={this.state.time} start={this.displayTime} reset={this.reset}/>
       </div>
-    );
+      );
   }
 
 });
