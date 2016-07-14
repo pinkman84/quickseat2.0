@@ -42,7 +42,7 @@ const CreateIndividual = React.createClass({
       if ( this.state.available === false ) {
         name = "Unavailable";
         console.log(thisPicture);
-        thisPicture = <img className="profiles" src="//logo.clearbit.com/codeclan.com?size=40" width="40" height="40"/>
+        thisPicture = <img className="profiles" src="//logo.clearbit.com/codeclan.com?size=80" width="80" height="80"/>
         aButton = <button id='add' onClick={ this.handleAdd }>+</button>
       } else {
         name = this.props.participant.name;

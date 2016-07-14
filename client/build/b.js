@@ -21094,7 +21094,7 @@
 	      if (this.state.available === false) {
 	        name = "Unavailable";
 	        console.log(thisPicture);
-	        thisPicture = React.createElement('img', { className: 'profiles', src: '//logo.clearbit.com/codeclan.com?size=40', width: '40', height: '40' });
+	        thisPicture = React.createElement('img', { className: 'profiles', src: '//logo.clearbit.com/codeclan.com?size=80', width: '80', height: '80' });
 	        aButton = React.createElement(
 	          'button',
 	          { id: 'add', onClick: this.handleAdd },
