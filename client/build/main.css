@@ -7,6 +7,17 @@ body{
   font-family: 'Quicksand'
 }
 
+   h1 {
+       color: #e6fff7;
+       font-size:70px;
+       text-align: 20px, 20px, 20px , 20px;
+       /*border: solid 4px #003323;*/
+       /*background-color: #006644;*/
+       padding-left: 30px;
+       background: linear-gradient(to right, #003322, #006644 );
+       margin-top: 0;
+}
+
 form {
   display: inline-block;
 }
@@ -91,6 +102,7 @@ form {
   border: solid #006644 2px ;
   border-radius: 5px;
   margin: 3px 0;
+  max-height: 178.54px;
 }
 
 canvas {
@@ -101,7 +113,7 @@ canvas {
   display: inline-block;
   position: absolute;
   z-index: 2;
-  top: 10%;
+  top: 20%;
   left: 2.5%;
 }
 

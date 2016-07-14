@@ -1,13 +1,13 @@
 const React = require('react');
 const Individual = require('./Individual.jsx');
 
-var ParticipantBox = React.createClass({
+let ParticipantBox = React.createClass({
 
   render: function() {
     if( !this.props.participants ) { return( <h4>fetching data</h4> ) };
     let list = this.props.participants.map(function(partInfo){
       if(partInfo.type === 'Employer'){
-        var logo = "//logo.clearbit.com/" + partInfo.name.toLowerCase().replace(/ /g,'') +".com?size=40"
+        var logo = "//logo.clearbit.com/" + partInfo.name.toLowerCase().replace(/ /g,'') +".com?.co.uk?.net?.org?size=80"
          var picture = <img className="profiles" src={logo} width="80" height="80"/>
 
 

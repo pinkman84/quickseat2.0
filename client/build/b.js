@@ -20997,7 +20997,7 @@
 	    };
 	    var list = this.props.participants.map(function (partInfo) {
 	      if (partInfo.type === 'Employer') {
-	        var logo = "//logo.clearbit.com/" + partInfo.name.toLowerCase().replace(/ /g, '') + ".com?size=40";
+	        var logo = "//logo.clearbit.com/" + partInfo.name.toLowerCase().replace(/ /g, '') + ".com?.co.uk?.net?.org?size=80";
 	        var picture = React.createElement('img', { className: 'profiles', src: logo, width: '80', height: '80' });
 	      } else if (partInfo.type === 'Student') {
 	        logo = "/images/" + partInfo.name + ".jpg";
