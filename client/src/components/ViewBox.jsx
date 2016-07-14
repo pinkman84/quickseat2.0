@@ -7,7 +7,7 @@ const ViewBox = React.createClass({
   getInitialState: function() {
     return {
       participants: [],
-      time: 600,
+      time: 120,
       employers: [],
       test: 328
     };
@@ -43,7 +43,7 @@ const ViewBox = React.createClass({
   },
 
   displayTime: function(){
-    setInterval(this.start, 200)
+    setInterval(this.start, 1000)
   },
 
   start: function(){

@@ -49,6 +49,7 @@ let CreateForm = React.createClass( {
 			<div id="create-form">
   			<form className="partyForm" onSubmit={this.handleSubmit}>
   				<input
+            className="name-form"
             type="text" placeholder="Name"
             onChange={this.handleNameChange}
             value={this.state.name} />

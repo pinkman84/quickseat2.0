@@ -21170,6 +21170,7 @@
 	        'form',
 	        { className: 'partyForm', onSubmit: this.handleSubmit },
 	        React.createElement('input', {
+	          className: 'name-form',
 	          type: 'text', placeholder: 'Name',
 	          onChange: this.handleNameChange,
 	          value: this.state.name }),

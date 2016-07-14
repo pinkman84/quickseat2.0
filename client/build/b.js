@@ -21158,7 +21158,7 @@
 	  getInitialState: function getInitialState() {
 	    return {
 	      participants: [],
-	      time: 600,
+	      time: 120,
 	      employers: [],
 	      test: 328
 	    };
@@ -21194,7 +21194,7 @@
 	  },
 	
 	  displayTime: function displayTime() {
-	    setInterval(this.start, 200);
+	    setInterval(this.start, 1000);
 	  },
 	
 	  start: function start() {
